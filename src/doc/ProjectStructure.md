@@ -9,7 +9,8 @@ Following a simpler version of the [Standard Directory Layout](https://maven.apa
 
 2. **`src/doc/`**
     - in this folder there will be all the documentation of the project.
-      - `ProjectStructure.md`: This document provides an overview of the project's structure (this file).
+       - `ProjectStructure.md`: This document provides an overview of the project's structure (this file).
+      - `GitBestPractice.md`: This document provides all the Git best practice for the repo.
 
 3. **`src/main/`**  
    The main directory contains the primary logic of the game.
