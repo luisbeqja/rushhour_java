@@ -7,18 +7,18 @@ import java.sql.SQLException;
 public class DatabaseConnection {
     private static Connection connection;
 
-    // HSQLDB connection string
-    //TODO: fix DB_URL with real db
-    private static final String DB_URL = "jdbc:hsqldb:file:db/myDatabase"; // Path to your database file
-    private static final String USER = "sa"; // Default HSQLDB user
-    private static final String PASSWORD = ""; // Default HSQLDB password (empty string)
+    // PostgreSQL connection string
+    //TODO: fix DB_URL with real db (check the name of DB)
+    private static final String DB_URL = "jdbc:postgresql://localhost:5432/RushHourDatabase"; // Path to your database file
+    private static final String USER = "postgres"; // Default PostgreSQL user
+    private static final String PASSWORD = ""; // Default PostgreSQL password (empty string)
 
     public static Connection getConnection() {
         if (connection == null) {
             try {
                 // Initialize the connection
                 connection = DriverManager.getConnection(DB_URL, USER, PASSWORD);
-                System.out.println("Connection to HSQLDB has been established.");
+                System.out.println("Connection to PostgreSQL has been established.");
             } catch (SQLException e) {
                 System.err.println("Connection to DB failed!");
             }
