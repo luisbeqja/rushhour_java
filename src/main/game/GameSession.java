@@ -1,5 +1,7 @@
 package main.game;
 
+import main.database.DatabaseConnection;
+
 public class GameSession {
 
     private Player player;
