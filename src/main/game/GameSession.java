@@ -1,43 +1,42 @@
 package main.game;
 
-import main.database.DatabaseConnection;
-import main.game.board.Board;
-
 public class GameSession {
 
-    private Player player;
-    private Board board;
-    private LeaderBoard leaderBoard;
+    private int totalTurns = 0;
+    private String  startDate = "";
+    private String  endDate = "";
 
 
-    DatabaseConnection databaseConnection = new DatabaseConnection();
-
-    public GameSession( Player player, Board board, LeaderBoard leaderBoard ) {
-        this.setPlayer(player);
-        this.setBoard(board);
-        this.setLeaderBoard(leaderBoard);
+    public GameSession( int totalTurns, String startDate, String endDate ) {
+        this.setTotalTurns(totalTurns);
+        this.setStartDate(startDate);
+        this.setEndDate(endDate);
     }
 
     //GETTERS
-    public Player getPlayer() {
-        return player;
-    }
-    public Board getBoard() {
-        return board;
-    }
-    public LeaderBoard getLeaderBoard() {
-        return leaderBoard;
+    public int getTotalTurns() {
+        return totalTurns;
     }
 
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+
     //SETTERS
-    public void setPlayer(Player player) {
-        this.player = player;
+    public void setTotalTurns(int totalTurns) {
+        this.totalTurns = totalTurns;
     }
-    public void setBoard(Board board) {
-        this.board = board;
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
     }
-    public void setLeaderBoard(LeaderBoard leaderBoard) {
-        this.leaderBoard = leaderBoard;
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
     }
-    
 }

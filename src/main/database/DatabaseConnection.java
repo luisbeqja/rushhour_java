@@ -21,7 +21,7 @@ public class DatabaseConnection {
             try {
                 // Initialize the connection
                 connection = DriverManager.getConnection(DB_URL, USER, PASSWORD);
-                System.out.println("Connection to PostgreSQL has been established.");
+                System.out.println("Connection to PostgresSQL has been established.");
 
             } catch (SQLException e) {
                 System.err.println("Connection to DB failed!" + e.getMessage());
