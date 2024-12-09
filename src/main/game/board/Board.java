@@ -16,6 +16,10 @@ public class Board {
     public boolean isBoardEmpty() {
         return isBoardEmpty;
     }
+    public String[][] getVisualBoard() {
+        this.createArrayBoard();
+        return visualBoard;
+    }
 
     /*SETTERS*/
     public void setIsBoardEmpty(boolean isBoardEmpty) {
@@ -25,7 +29,7 @@ public class Board {
     /*METHODS*/
 
     // NOTE: Insert the vehicles to the board
-    public void createArrayBoard() {
+    private void createArrayBoard() {
         List<Vehicle> vehicles = BoardLevels.getLevel();
         for (Vehicle vehicle : vehicles) {
             int vehicleRow = vehicle.getRow();

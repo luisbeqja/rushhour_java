@@ -9,6 +9,7 @@ public class Vehicle {
         this.cellValue = label;
         this.row = row;
         this.column = column;
+
     }
 
     public int getRow() {
