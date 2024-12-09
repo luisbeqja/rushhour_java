@@ -1,6 +1,7 @@
 package main.game;
 
 import main.database.DatabaseConnection;
+import main.game.board.Board;
 
 public class GameSession {
 

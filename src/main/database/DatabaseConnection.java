@@ -8,11 +8,13 @@ import java.sql.Statement;
 public class DatabaseConnection {
     private static Connection connection;
 
-    // PostgreSQL connection string
-    //TODO: fix DB_URL with real db (check the name of DB)
+    // PostgresSQL connection string
     private static final String DB_URL = "jdbc:postgresql://localhost:5432/postgres"; // Path to your database file
-    private static final String USER = "postgres"; // Default PostgreSQL user
-    private static final String PASSWORD = "2532002Luis"; // Default PostgreSQL password (empty string)
+    private static final String USER = "postgres"; // Default PostgresSQL user
+
+
+    // TODO ASK about the PASSWORD from different pc's
+    private static final String PASSWORD = "2532002Luis"; // Default PostgresSQL password (different from every pc)
 
     public static Connection getConnection() {
         if (connection == null) {
