@@ -1,4 +1,4 @@
-package main.game;
+package main.game.gamesession;
 
 public class GameSession {
 

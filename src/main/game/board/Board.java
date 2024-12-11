@@ -61,7 +61,7 @@ public class Board {
             for (int j = 0; j < cols; j++) {
                 // Replace null with a space
                 String cell = strings[j] == null ? " " : strings[j];
-                sb.append(" ").append(cell.toLowerCase()).append(" |");
+                sb.append(" ").append(cell.toUpperCase()).append(" |");
             }
             sb.append("\n");
         }
