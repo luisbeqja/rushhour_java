@@ -1,6 +1,7 @@
 package main.game.board;
 
 import java.util.List;
+import java.util.Map;
 
 public class Board {
 
@@ -30,13 +31,14 @@ public class Board {
 
     // NOTE: Insert the vehicles to the board
     private void createArrayBoard() {
-        List<Vehicle> vehicles = BoardLevels.getLevel();
-        for (Vehicle vehicle : vehicles) {
-            int vehicleRow = vehicle.getRow();
-            int vehicleColumn = vehicle.getColumn();
-            String vehicleValue = vehicle.getCellValue();
+        Map<String, Vehicle> vehicles = BoardLevels.getLevel();
+        for (Map.Entry<String, Vehicle> vehicle: vehicles.entrySet()) {
+            String vehicleValue = vehicle.getKey();
+            int[][] vehiclePosition = vehicle.getValue().getPosition();
 
-            visualBoard[vehicleRow][vehicleColumn] = vehicleValue;
+            for (int[] position: vehiclePosition) {
+                visualBoard[position[0]][position[1]] = vehicleValue;
+            }
         }
     };
 

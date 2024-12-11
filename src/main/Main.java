@@ -43,7 +43,7 @@ public class Main {
 
         // NOTE: print out the board
         System.out.println(board);
-        System.out.println("Can Move " + BoardRules.canVehicleMoveRight("a", 2));
-        System.out.println("Can Move " + BoardRules.canVehicleMoveLeft("c", 2));
+        System.out.println("Can Move " + BoardRules.canVehicleMoveRight("X", 2));
+        System.out.println("Can Move " + BoardRules.canVehicleMoveLeft("X", 2));
     }
 }
