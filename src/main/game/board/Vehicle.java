@@ -1,31 +1,26 @@
 package main.game.board;
 
+import java.util.Arrays;
+
 public class Vehicle {
     private final String cellValue; // e.g., "A" or "B"
-    private final int row;
-    private final int column;
+    private final int[][] position;
 
-    public Vehicle(String label, int row, int column) {
-        this.cellValue = label;
-        this.row = row;
-        this.column = column;
-
-    }
-
-    public int getRow() {
-        return row;
-    }
-
-    public int getColumn() {
-        return column;
+    public Vehicle(String value, int[][] position) {
+        this.cellValue = value;
+        this.position = position;
     }
 
     public String getCellValue() {
         return cellValue;
     }
 
+    public int[][] getPosition() {
+        return position;
+    }
+
     @Override
     public String toString() {
-        return cellValue + "[" + row + "," + column + "]";
+        return String.format("%s %s", cellValue, Arrays.deepToString(position));
     }
 }

@@ -1,27 +1,28 @@
 package main.game.board;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class BoardLevels {
 
-    static List<Vehicle> level1 = new ArrayList<>();
-
+    static Map<String, Vehicle> level2 = new HashMap<>();
 
     public BoardLevels() {
-        level1.add(new Vehicle("A", 1, 1)); // Add elements inside the constructor
-        level1.add(new Vehicle("A", 1, 2)); // Add elements inside the constructor
+        int[][] vehicleXCoordinates = {{2, 0}, {2, 1}};
+        int[][] vehicleGCoordinates = {{1, 2}, {2, 2}};
+        int[][] vehicleHCoordinates = {{1, 3}, {2, 3}};
+        int[][] vehicleICoordinates = {{1, 4}, {2, 4}};
+        int[][] vehicleDCoordinates = {{3, 2}, {3, 3}, {3, 4}};
 
-        level1.add(new Vehicle("B", 5, 2)); // Add elements inside the constructor
-        level1.add(new Vehicle("B", 4, 2)); // Add elements inside the constructor
-
-        level1.add(new Vehicle("C", 3, 3)); // Add elements inside the constructor
-        level1.add(new Vehicle("C", 3, 4)); // Add elements inside the constructor
-        level1.add(new Vehicle("C", 3, 5)); // Add elements inside the constructor
+        level2.put("X", new Vehicle("X", vehicleXCoordinates));
+        level2.put("G", new Vehicle("G", vehicleGCoordinates));
+        level2.put("H", new Vehicle("H", vehicleHCoordinates));
+        level2.put("I", new Vehicle("I", vehicleICoordinates));
+        level2.put("D", new Vehicle("D", vehicleDCoordinates));
     }
 
-    // Method to access the level1 list
-    public static List<Vehicle> getLevel() {
-        return level1;
+
+    // Method to access the level2 list
+    public static Map<String, Vehicle> getLevel() {
+        return level2;
     };
 }
