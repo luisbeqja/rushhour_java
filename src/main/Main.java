@@ -68,6 +68,7 @@ public class Main {
                 case "left" -> System.out.println("Can Move Left " + BoardRules.canVehicleMoveLeft(vehicle, 2));
                 case "up" -> System.out.println("Can Move up " + BoardRules.canVehicleMoveUp(vehicle, 1));
                 case "down" -> System.out.println("Can Move Down " + BoardRules.canVehicleMoveDown(vehicle, 2));
+                default -> System.out.println("Invalid direction: " + direction);
             }
             //TODO: move() for vehicle
         }
