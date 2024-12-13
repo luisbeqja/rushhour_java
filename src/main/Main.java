@@ -64,6 +64,7 @@ public class Main {
 
             //TODO: Check for the type of the vehicle and make the same for vertically
             //For horizontally vehicle
+<<<<<<< src/main/Main.java
             System.out.println("Choose a direction(right/left/up/down): ");
             String direction = sc.nextLine();
 
@@ -73,8 +74,17 @@ public class Main {
                 case "right" -> System.out.println("Can Move Right " + BoardRules.canVehicleMoveRight(vehicle, 1));
                 case "left" -> System.out.println("Can Move Left " + BoardRules.canVehicleMoveLeft(vehicle, 2));
                 case "up" -> System.out.println("Can Move up " + BoardRules.canVehicleMoveUp(vehicle, 1));
+                case "down" -> System.out.println("Can Move Down " + BoardRules.canVehicleMoveDown(vehicle, 2));
 
 
+=======
+            System.out.println("Choose a direction(right/left/down): ");
+            String direction = sc.nextLine();
+
+            switch (direction) {
+                case "right" -> System.out.println("Can Move Right " + BoardRules.canVehicleMoveRight(vehicle, 1));
+                case "left" -> System.out.println("Can Move Left " + BoardRules.canVehicleMoveLeft(vehicle, 2));
+                case "down" -> System.out.println("Can Move Down " + BoardRules.canVehicleMoveDown(vehicle, 2));
                 default -> System.out.println("Invalid direction: " + direction);
             }
 

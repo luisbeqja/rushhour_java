@@ -96,6 +96,7 @@ public class BoardRules {
         }
         return false; // Vehicle not found in any row
     }
+
     // Check if the vehicle move up
     public static boolean canVehicleMoveUp(String vehicle, int numberOfMoves) {
             for (int col = 0; col < board[0].length; col++) {
@@ -127,29 +128,43 @@ public class BoardRules {
             }
             return false; // Vehicle not found
         }
-    // Move the vehicle up
-    public static void moveVehicleUp(String vehicle, int numberOfMoves) {
-        if (!canVehicleMoveUp(vehicle, numberOfMoves)) {
-            System.out.println("Vehicle cannot move up.");
-            return;
-        }
+    }
 
-        for (int col = 0; col < board[0].length; col++) {
-            for (int row = 0; row < board.length; row++) {
+    public static boolean canVehicleMoveDown(String vehicle, int numberOfMoves) {
+        //defining columns/rows
+        int numRows = board.length;
+        int numCols = board[0].length;
+
+        //Iterate through each column of the board
+        for (int col = 0; col < numCols; col++) {
+            int lastIndex = -1; //track the lowest occurence of the vehicle in the column
+
+            //Find the lowest occurence of the vehicle in the column
+            for (int row = 0; row < numRows; row++) {
                 if (board[row][col] != null && board[row][col].equalsIgnoreCase(vehicle)) {
-                    // Move the vehicle part up
-                    board[row - numberOfMoves][col] = vehicle;
-                    board[row][col] = null; // Clear old position
+                    lastIndex = row;
                 }
             }
+            if (lastIndex != -1) { //if vehicle is found in column
+                //check if vehicle can move down
+                for (int move = 1; move <= numberOfMoves; move++) {
+                    int newIndex = lastIndex + move;
+
+                    //check if move goes out of bounds
+                    if (newIndex >= numRows) {
+                        System.out.println("Cannot move down: Out of bounds at index " + newIndex);
+                        return false; //out of bounds
+                    }
+                    //check if the space below is blocked
+                    if (board[newIndex][col] != null) {
+                        System.out.println("Cannot move down: Blocked at row " + newIndex + " with value " + board[newIndex][col]);
+                        return false; //blocked space
+                    }
+                }
+                return true; //the vehicle can move the specified n of moves
+
+            }
         }
-
-        System.out.println(vehicle + " moved up by " + numberOfMoves + " steps.");
+        return false; //Vehicle not found in any column
     }
-
-    }
-
-
-
-
-
+}
