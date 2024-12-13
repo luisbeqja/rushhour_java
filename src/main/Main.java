@@ -64,7 +64,7 @@ public class Main {
 
             //TODO: Check for the type of the vehicle and make the same for vertically
             //For horizontally vehicle
-<<<<<<< src/main/Main.java
+
             System.out.println("Choose a direction(right/left/up/down): ");
             String direction = sc.nextLine();
 
