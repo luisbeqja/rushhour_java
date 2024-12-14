@@ -130,6 +130,7 @@ public class BoardRules {
             return true;
         }
         return false;
+    }
 
 
     public static boolean canVehicleMoveDown(String vehicle, int numberOfMoves) {

@@ -84,7 +84,6 @@ public class Main {
                 System.out.println("Choose a direction(up/down): ");
                 String direction = sc.nextLine();
 
-                //TODO: Artis' checks for canVehicleMoveUp and Down go here:
                 switch (direction.toLowerCase()) {
                     case "down" -> System.out.println("Can Move Down " + BoardRules.canVehicleMoveDown(vehicle, 2));
                     case "up" -> System.out.println("Can Move up " + BoardRules.canVehicleMoveUp(vehicle, 1));
