@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class Vehicle {
     private final String cellValue; // e.g., "A" or "B"
-    private final int[][] position;
+    private int[][] position;
 
     public Vehicle(String value, int[][] position) {
         this.cellValue = value;
@@ -17,6 +17,32 @@ public class Vehicle {
 
     public int[][] getPosition() {
         return position;
+    }
+
+    public void move(String direction, int numberOfMoves) {
+        switch (direction) {
+            case "up" -> {
+                for (int i = 0; i < this.position.length; i++) {
+                    this.position[i][0] -= numberOfMoves;
+                }
+            }
+            case "down" -> {
+                for (int i = 0; i < this.position.length; i++) {
+                    this.position[i][0] += numberOfMoves;
+                }
+            }
+            case "left" -> {
+                for (int i = 0; i < this.position.length; i++) {
+                    this.position[i][1] -= numberOfMoves;
+                }
+            }
+            case "right" -> {
+                for (int i = 0; i < this.position.length; i++) {
+                    this.position[i][1] += numberOfMoves;
+                }
+            }
+            default -> System.out.println("Invalid direction");
+        }
     }
 
     @Override
