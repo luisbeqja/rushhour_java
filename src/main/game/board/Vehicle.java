@@ -19,6 +19,7 @@ public class Vehicle {
         return position;
     }
 
+    // NOTE: move func for vehicle
     public void move(String direction, int numberOfMoves) {
         switch (direction) {
             case "up" -> {
