@@ -73,4 +73,17 @@ public class Board {
 
         return sb.toString();
     }
+
+   public boolean hasWinningCondition() {
+        return false;
+    }
+
+    public void moveVehicle(String vehicle, String direction) {
+
+    }
+//    public boolean isVehiclePresent(String vehicle) {
+//        // Implement logic to return true if the vehicle is present on the board
+//    }
+//
+//    // part of solution
 }

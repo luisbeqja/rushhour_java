@@ -1,6 +1,9 @@
 package main.game;
 
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 
 public class Player {
 
@@ -16,11 +19,31 @@ public class Player {
         this.setEmail(email);
     }
 
-    public Player(String userName, String joinDate, String email) {
+  /*  public Player(String userName, String joinDate, String email) {
         this.setUserName(userName);
         this.setJoinDate(joinDate);
         this.setEmail(email);
     }
+
+   */
+
+
+
+    public Player(String userName, String joinDate, String email) {
+        // Validate inputs in this constructor
+        if (userName == null || userName.trim().isEmpty()) {
+            throw new IllegalArgumentException("User name cannot be null or empty.");
+        }
+
+        if (email == null || email.trim().isEmpty() || !isValidEmail(email)) {
+            throw new IllegalArgumentException("Email cannot be null, empty, or invalid.");
+        }
+
+        this.setUserName(userName);
+        this.setJoinDate(joinDate);
+        this.setEmail(email);
+    }
+
 
     // GETTERS
     public int getScore() {
@@ -53,6 +76,15 @@ public class Player {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    // Method to validate email
+    private boolean isValidEmail(String email) {
+        String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+        Pattern pattern = Pattern.compile(emailRegex);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
+
 
     @Override
     public String toString() {
