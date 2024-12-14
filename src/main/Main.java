@@ -66,8 +66,9 @@ public class Main {
             //check if user input for vehicle is actually a vehicle that is on the board
             if (!BoardRules.isVehicleOnBoard(vehicle)) {
                 System.out.println("That is not a vehicle on the board.");
-            }
 
+            }
+            
             //check if the vehicle can move horizontally AND if it is actually on the board
             if (BoardRules.canVehicleMoveHorizontally(vehicle) && BoardRules.isVehicleOnBoard(vehicle)) {
                 System.out.println("Choose a direction(right/left): ");
@@ -85,8 +86,8 @@ public class Main {
 
                 //TODO: Artis' checks for canVehicleMoveUp and Down go here:
                 switch (direction.toLowerCase()) {
-                    case "up" -> System.out.println("up");
-                    case "down" -> System.out.println("down");
+                    case "down" -> System.out.println("Can Move Down " + BoardRules.canVehicleMoveDown(vehicle, 2));
+                    case "up" -> System.out.println("Can Move up " + BoardRules.canVehicleMoveUp(vehicle, 1));
                     default -> System.out.println("Invalid direction: " + direction);
                 }
             }

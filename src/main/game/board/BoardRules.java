@@ -130,5 +130,74 @@ public class BoardRules {
             return true;
         }
         return false;
+
+
+    public static boolean canVehicleMoveDown(String vehicle, int numberOfMoves) {
+        //defining columns/rows
+        int numRows = board.length;
+        int numCols = board[0].length;
+
+        //Iterate through each column of the board
+        for (int col = 0; col < numCols; col++) {
+            int lastIndex = -1; //track the lowest occurence of the vehicle in the column
+
+            //Find the lowest occurence of the vehicle in the column
+            for (int row = 0; row < numRows; row++) {
+                if (board[row][col] != null && board[row][col].equalsIgnoreCase(vehicle)) {
+                    lastIndex = row;
+                }
+            }
+            if (lastIndex != -1) { //if vehicle is found in column
+                //check if vehicle can move down
+                for (int move = 1; move <= numberOfMoves; move++) {
+                    int newIndex = lastIndex + move;
+
+                    //check if move goes out of bounds
+                    if (newIndex >= numRows) {
+                        System.out.println("Cannot move down: Out of bounds at index " + newIndex);
+                        return false; //out of bounds
+                    }
+                    //check if the space below is blocked
+                    if (board[newIndex][col] != null) {
+                        System.out.println("Cannot move down: Blocked at row " + newIndex + " with value " + board[newIndex][col]);
+                        return false; //blocked space
+                    }
+                }
+                return true; //the vehicle can move the specified n of moves
+
+            }
+        }
+        return false; //Vehicle not found in any column
+    }
+    // Check if the vehicle move up
+    public static boolean canVehicleMoveUp(String vehicle, int numberOfMoves) {
+        for (int col = 0; col < board[0].length; col++) {
+            int firstRow = -1;
+
+            // Find the topmost position of the vehicle in the column
+            for (int row = 0; row < board.length; row++) {
+                if (board[row][col] != null && board[row][col].equalsIgnoreCase(vehicle)) {
+                    firstRow = row;
+                    break;
+                }
+            }
+
+            if (firstRow != -1) { // Vehicle is found in this column
+                // Check if it can move up
+                for (int move = 1; move <= numberOfMoves; move++) {
+                    int newRow = firstRow - move;
+                    if (newRow < 0) {
+                        System.out.println("Cannot move up: Out of bounds at row " + newRow);
+                        return false;
+                    }
+                    if (board[newRow][col] != null) {
+                        System.out.println("Cannot move up: Blocked at row " + newRow + " with value " + board[newRow][col]);
+                        return false;
+                    }
+                }
+                return true;
+            }
+        }
+        return false; // Vehicle not found
     }
 }
