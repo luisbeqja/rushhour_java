@@ -13,13 +13,14 @@ import java.util.Scanner;
 
 import java.sql.SQLException;
 
+import static main.game.board.BoardRules.winCheck;
+
 public class Main {
     public static void main(String[] args) throws SQLException {
         Board board = new Board(false);
         boolean winCheck = false;
 
         Scanner sc = new Scanner(System.in);
-
         System.out.println("Enter your name: ");
         String name = sc.nextLine();
         System.out.println("Enter your email: ");
@@ -58,24 +59,38 @@ public class Main {
         // NOTE: print out the board
         while (!winCheck) {
             System.out.println(board);
+
             System.out.println("Choose a vehicle: ");
             String vehicle = sc.nextLine();
-            //TODO: check for this vehicle on the board
 
-            //TODO: Check for the type of the vehicle and make the same for vertically
-            //For horizontally vehicle
-            System.out.println("Choose a direction(right/left): ");
-            String direction = sc.nextLine();
-
-            switch (direction) {
-                case "right" -> System.out.println("Can Move Right " + BoardRules.canVehicleMoveRight(vehicle, 1));
-                case "left" -> System.out.println("Can Move Left " + BoardRules.canVehicleMoveLeft(vehicle, 2));
-                default -> System.out.println("Invalid direction: " + direction);
+            //check if user input for vehicle is actually a vehicle that is on the board
+            if (!BoardRules.isVehicleOnBoard(vehicle)) {
+                System.out.println("That is not a vehicle on the board.");
             }
 
+            //check if the vehicle can move horizontally AND if it is actually on the board
+            if (BoardRules.canVehicleMoveHorizontally(vehicle) && BoardRules.isVehicleOnBoard(vehicle)) {
+                System.out.println("Choose a direction(right/left): ");
+                String direction = sc.nextLine();
+
+                switch (direction.toLowerCase()) {
+                    case "right" -> System.out.println("Can Move Right " + BoardRules.canVehicleMoveRight(vehicle, 1));
+                    case "left" -> System.out.println("Can Move Left " + BoardRules.canVehicleMoveLeft(vehicle, 2));
+                    default -> System.out.println("Invalid direction: " + direction);
+                }
+                //check if vehicle can move vertically AND if it is also actually on the board
+            } else if (BoardRules.canVehicleMoveVertically(vehicle) && BoardRules.isVehicleOnBoard(vehicle)) {
+                System.out.println("Choose a direction(up/down): ");
+                String direction = sc.nextLine();
+
+                //TODO: Artis' checks for canVehicleMoveUp and Down go here:
+                switch (direction.toLowerCase()) {
+                    case "up" -> System.out.println("up");
+                    case "down" -> System.out.println("down");
+                    default -> System.out.println("Invalid direction: " + direction);
+                }
+            }
             //TODO: move() for vehicle
         }
-
-
     }
 }
