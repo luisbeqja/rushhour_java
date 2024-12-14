@@ -6,15 +6,15 @@ import java.sql.Statement;
 
 public class DatabaseDDL {
 // TEST DATABASE CONNECTION
-    DatabaseConnection.getConnection();
-    Create create = new Create();
-    create.createPlayerTable();
-
-    //Create a statement
-    Statement statement = connection.createStatement();
-
-    //Creating a table
-    statement.executeUpdate()
+//    DatabaseConnection.getConnection();
+//    Create create = new Create();
+//    create.createPlayerTable();
+//
+//    //Create a statement
+//    Statement statement = connection.createStatement();
+//
+//    //Creating a table
+//    statement.executeUpdate()
 
 
 

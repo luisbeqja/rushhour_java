@@ -32,7 +32,7 @@ public class Main {
             email = sc.nextLine(); // Get email from input
 
             // Check if the entered email is valid
-            if (isValidEmail(email)){
+            if (isValidEmail(email)) {
                 break; // Exit loop if email is valid
             } else {
                 System.out.println("Invalid email. Enter again: "); // Prompt for re-entry on invalid email
@@ -52,7 +52,7 @@ public class Main {
 
         BoardRules boardRules = new BoardRules(
                 board.getVisualBoard()
-        );        
+        );
 
         // Setup database connection for player data storage
         DatabaseConnection.getConnection();
@@ -71,7 +71,7 @@ public class Main {
                 System.out.println("That is not a vehicle on the board.");
 
             }
-            
+
             //check if the vehicle can move horizontally AND if it is actually on the board
             if (BoardRules.canVehicleMoveHorizontally(vehicle) && BoardRules.isVehicleOnBoard(vehicle)) {
                 System.out.println("Choose a direction(right/left): ");
@@ -97,7 +97,6 @@ public class Main {
         }
     }
 
-
     // Method to check for valid email format
     private static boolean isValidEmail(String email) {
         // Simple email validation (checks for "@" and "." in the correct order)
@@ -107,4 +106,5 @@ public class Main {
     // Method to check for winning condition in the game
     private static boolean checkWinCondition(Board board) {
         return board.hasWinningCondition(); // Call the board's method to check if the winning condition is met
+    }
 }
