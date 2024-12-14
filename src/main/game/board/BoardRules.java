@@ -12,10 +12,38 @@ public class BoardRules {
         this.board = board;
     }
 
+    //is the vehicle on the board?
+    public static boolean isVehicleOnBoard(String vehicle) {
+        //iterate through the board[][] array
+        for (int i = 0; i < board.length; i++) {  // Loop through rows
+            for (int j = 0; j < board[i].length; j++) {  // Loop through columns in each row
+                if (board[i][j] != null && board[i][j].equalsIgnoreCase(vehicle)) {  // Check for a match
+                    return true;
+                }
+            }
+        } return false;
+    }
 
-    // Vehicles from A to F moves only horizontally
-    // Vehicles from G to L moves only vertically
+    // Check: Vehicles from A to F and X move only horizontally
+    public static boolean canVehicleMoveHorizontally(String vehicle) {
+        if ((int)vehicle.charAt(0) >= 65 && (int)vehicle.charAt(0) <= 70 || (int)vehicle.charAt(0) == 88) {
+            return true; //uppercase letters
+        } else if ((int)vehicle.charAt(0) >= 97 && (int)vehicle.charAt(0) <= 102 || (int)vehicle.charAt(0) == 120) {
+            return true; //lowercase letters
+        }
+        return false;
+    }
 
+
+    // Check: Vehicles from G to L move only vertically
+    public static boolean canVehicleMoveVertically(String vehicle) {
+        if ((int)vehicle.charAt(0) >= 71 && (int)vehicle.charAt(0) <= 76) {
+            return true; //uppercase letters
+        } else if ((int)vehicle.charAt(0) >= 103 && (int)vehicle.charAt(0) <= 108) {
+            return true; //lowercase letters
+        }
+        return false;
+    }
 
     @Override
     public String toString() {
@@ -96,6 +124,13 @@ public class BoardRules {
         }
         return false; // Vehicle not found in any row
     }
+
+    public static boolean winCheck() {
+        if (board[2][4].equals('X') && board[2][5].equals('X')) {
+            return true;
+        }
+        return false;
+
 
     public static boolean canVehicleMoveDown(String vehicle, int numberOfMoves) {
         //defining columns/rows
