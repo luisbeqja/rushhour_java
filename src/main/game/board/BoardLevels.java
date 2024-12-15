@@ -4,14 +4,12 @@ import java.util.*;
 
 public class BoardLevels {
 
-    private static Map<String, Vehicle> level1 = new HashMap<>(); //move this down to above level 1 array?
     private static List<Map<String, Vehicle>> levels = new ArrayList<>();
 
-
-    //TODO: Create more levels
     //TODO: add all levels to List and access them from List by index (maybe ordered list?)
     public BoardLevels() {
         //level 1 - easy
+        Map<String, Vehicle> level1 = new HashMap<>();
         int[][] vehicleXCoordinates = {{2, 0}, {2, 1}};
         int[][] vehicleGCoordinates = {{1, 2}, {2, 2}};
         int[][] vehicleHCoordinates = {{1, 3}, {2, 3}};
@@ -226,6 +224,6 @@ public class BoardLevels {
 
     // Method to access the level2 list
     public static Map<String, Vehicle> getLevel() {
-        return level1;
+        return levels.get(0);
     };
 }
