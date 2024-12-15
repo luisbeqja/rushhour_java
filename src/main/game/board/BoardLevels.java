@@ -11,7 +11,7 @@ public class BoardLevels {
         int[][] vehicleGCoordinates = {{1, 2}, {2, 2}};
         int[][] vehicleHCoordinates = {{1, 3}, {2, 3}};
         int[][] vehicleICoordinates = {{1, 4}, {2, 4}};
-        int[][] vehicleDCoordinates = {{3, 2}, {3, 3}, {3, 4}};
+        int[][] vehicleDCoordinates = {{3, 1}, {3, 2}, {3, 3}};
 
         level2.put("X", new Vehicle("X", vehicleXCoordinates));
         level2.put("G", new Vehicle("G", vehicleGCoordinates));
