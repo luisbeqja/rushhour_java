@@ -5,20 +5,16 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DatabaseDDL {
-public static void main(String[] args) {
-    //Database connection details
-    String url = "jdbc:postgresql://localhost:5432/postgres";
-    String username = "postgres";
-    String password = "Kokodak229"; //Adjust to each?
-
-    try(Connection connection = DriverManager.getConnection(url, username, password)) {
-        //Execute table creation
-        executeDDL(connection);
-        System.out.println("Tables created successfully!");
-    } catch (Exception e) {
-        System.err.println("Error while connecting to the database: " + e.getMessage());
-    }
-}
+// TEST DATABASE CONNECTION
+//    DatabaseConnection.getConnection();
+//    Create create = new Create();
+//    create.createPlayerTable();
+//
+//    //Create a statement
+//    Statement statement = connection.createStatement();
+//
+//    //Creating a table
+//    statement.executeUpdate()
 
 public static void executeDDL(Connection connection) { //Modify following string in future if edits needed
 String createTablesSQL = """

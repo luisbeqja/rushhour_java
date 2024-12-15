@@ -3,14 +3,18 @@ package main;
 import main.database.Create;
 import main.database.DatabaseConnection;
 import main.game.board.Board;
+import main.game.board.Vehicle;
 import main.game.gamesession.GameSession;
 import main.game.LeaderBoard;
 import main.game.Player;
 import main.game.board.BoardRules;
 
 import java.time.LocalDate;
+import java.util.Map;
 import java.util.Scanner;
 import java.sql.SQLException;
+
+import static main.game.board.BoardRules.winCheck;
 
 public class Main {
     public static void main(String[] args) throws SQLException {
@@ -47,64 +51,67 @@ public class Main {
         LeaderBoard leaderBoard = new LeaderBoard(playerTest);
         GameSession gameSession = new GameSession(0, "", "");
 
+        //NOTE: select level
+        //TODO: player can select level from given array of levels
+        int selectedLevel = 1;
+
+        Map<String, Vehicle> boardMap = board.createBoard();
+
+        BoardRules boardRules = new BoardRules(
+                board.getVisualBoard(boardMap)
+        );
+
         // Setup database connection for player data storage
         DatabaseConnection.getConnection();
         Create create = new Create(); // Instance to handle database table creation
         create.createPlayerTable(); // Create player table in the database
 
-        // Game loop that continues until a winning condition is met
+        // NOTE: print out the board
+        //TODO: Make winChecker work
+        //TODO: If there is no cars between "X" car and "Escape" -> win!
         while (!winCheck) {
-            System.out.println(board); // Display the current state of the board
+            System.out.println(board.toString());
+
             System.out.println("Choose a vehicle: ");
-            String vehicle = sc.nextLine(); // Get the vehicle choice from the player
+            String vehicleStr = sc.nextLine();
 
-            // TODO: Check if the chosen vehicle is present on the board
+            Vehicle vehicle = boardMap.get(vehicleStr);
 
-            // Prompt player to choose a direction for vehicle movement
-            System.out.println("Choose a direction (right/left): ");
-            String direction = sc.nextLine(); // Get the direction from user input
+            //check if user input for vehicle is actually a vehicle that is on the board
+            if (!BoardRules.isVehicleOnBoard(vehicleStr)) {
+                System.out.println("That is not a vehicle on the board.");
 
-            boolean moveSuccessful = false; // Flag to track if the move was successful
-
-            // Handle the vehicle movement based on the chosen direction
-            switch (direction) {
-                case "right":
-                    // Check if the vehicle can move to the right
-                    if (BoardRules.canVehicleMoveRight(vehicle, 1)) {
-                        board.moveVehicle(vehicle, direction); // Execute the move
-                        moveSuccessful = true; // Mark the move as successful
-                    } else {
-                        // Inform user that the move cannot be made
-                        System.out.println("Cannot move vehicle to the right.");
-                    }
-                    break;
-
-                case "left":
-                    // Check if the vehicle can move to the left
-                    if (BoardRules.canVehicleMoveLeft(vehicle, 2)) {
-                        board.moveVehicle(vehicle, direction); // Execute the move
-                        moveSuccessful = true; // Mark the move as successful
-                    } else {
-                        // Inform user that the move cannot be made
-                        System.out.println("Cannot move vehicle to the left.");
-                    }
-                    break;
-
-                default:
-                    // Handle invalid direction input
-                    System.out.println("Invalid direction: " + direction);
-                    break;
             }
 
-            // Check if the move was successful and update win status
-            if (moveSuccessful) {
-                winCheck = checkWinCondition(board); // Check for win condition after a successful move
+            //check if the vehicle can move horizontally AND if it is actually on the board
+            if (BoardRules.canVehicleMoveHorizontally(vehicleStr) && BoardRules.isVehicleOnBoard(vehicleStr)) {
+                System.out.println("Choose a direction(right/left): ");
+                String direction = sc.nextLine();
+
+                //TODO: 1) ask for number of moves and check for possibility -> move if possible
+                //TODO: 2) add updateArrayBoard for every direction
+
+                switch (direction.toLowerCase()) {
+                    case "right" -> {
+                        System.out.println("Can Move Right " + BoardRules.canVehicleMoveRight(vehicleStr, 1));
+                        board.updateArrayBoard(boardMap, vehicle, direction, 1);
+                    }
+                    case "left" -> System.out.println("Can Move Left " + BoardRules.canVehicleMoveLeft(vehicleStr, 2));
+                    default -> System.out.println("Invalid direction: " + direction);
+                }
+                //check if vehicle can move vertically AND if it is also actually on the board
+            } else if (BoardRules.canVehicleMoveVertically(vehicleStr) && BoardRules.isVehicleOnBoard(vehicleStr)) {
+                System.out.println("Choose a direction(up/down): ");
+                String direction = sc.nextLine();
+
+                switch (direction.toLowerCase()) {
+                    case "down" -> System.out.println("Can Move Down " + BoardRules.canVehicleMoveDown(vehicleStr, 2));
+                    case "up" -> System.out.println("Can Move up " + BoardRules.canVehicleMoveUp(vehicleStr, 1));
+                    default -> System.out.println("Invalid direction: " + direction);
+                }
             }
+            //TODO: implement counter of turns (connect it with GameSession?)
         }
-
-        // Congratulate the player upon winning the game
-        System.out.println("Congratulations! You've won the game!");
-        sc.close(); // Close the scanner to free resources
     }
 
     // Method to check for winning condition in the game
