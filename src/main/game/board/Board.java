@@ -1,24 +1,25 @@
 package main.game.board;
 
-import java.util.List;
+
 import java.util.Map;
 
 public class Board {
 
     private boolean isBoardEmpty;
-    private final String[][] visualBoard = new String[6][6];
+    private final String[][] visualBoard;
     BoardLevels boardLevels = new BoardLevels();
 
     public Board(boolean isBoardEmpty) {
         this.isBoardEmpty = isBoardEmpty;
+        this.visualBoard = new String[6][6];
     }
 
     /*GETTERS*/
     public boolean isBoardEmpty() {
         return isBoardEmpty;
     }
-    public String[][] getVisualBoard() {
-        this.createArrayBoard();
+    public String[][] getVisualBoard(Map<String, Vehicle> vehicles) {
+        this.createArrayBoard(vehicles);
         return visualBoard;
     }
 
@@ -29,9 +30,14 @@ public class Board {
 
     /*METHODS*/
 
-    // NOTE: Insert the vehicles to the board
-    private void createArrayBoard() {
-        Map<String, Vehicle> vehicles = BoardLevels.getLevel();
+    //NOTE: Insert vehicles from level as Map<String, Vehicle>
+    //TODO: add here levelName
+    public Map<String, Vehicle> createBoard() {
+        return BoardLevels.getLevel();
+    }
+
+    // NOTE: Insert the vehicles to the visualboard
+    public void createArrayBoard(Map<String, Vehicle> vehicles) {
         for (Map.Entry<String, Vehicle> vehicle: vehicles.entrySet()) {
             String vehicleValue = vehicle.getKey();
             int[][] vehiclePosition = vehicle.getValue().getPosition();
@@ -42,9 +48,32 @@ public class Board {
         }
     };
 
+    // NOTE: Updating visualboard after move with new vehicle position
+    public void updateArrayBoard(Map<String, Vehicle> vehicles, Vehicle vehicleToMove, String direction, int numberOfMoves) {
+        // Select vehicle that we want to move
+        Vehicle vehicle = vehicles.get(vehicleToMove.getCellValue());
+
+        // clear previous vehicle position from visualboard
+        for (int[] position: vehicle.getPosition()) {
+            visualBoard[position[0]][position[1]] = null;
+        }
+
+        // move vehicle
+        vehicle.move(direction, numberOfMoves);
+
+        // displaying new position after move on the visualboard
+        for (int[] position: vehicle.getPosition()) {
+            visualBoard[position[0]][position[1]] = vehicleToMove.getCellValue();
+        }
+    }
+
+    public boolean hasWinningCondition() {
+        return false;
+    }
+
     // NOTE: Print out the string for the board with the vehicles
+    @Override
     public String toString() {
-        createArrayBoard();
         int rows = visualBoard.length;
         int cols = visualBoard.length;
         StringBuilder sb = new StringBuilder();
@@ -73,18 +102,4 @@ public class Board {
 
         return sb.toString();
     }
-
-   public boolean hasWinningCondition() {
-        return false;
-    }
-
-//    public void moveVehicle(String vehicle, String direction) {
-//
-//    }
-
-//    public boolean isVehiclePresent(String vehicle) {
-//        // Implement logic to return true if the vehicle is present on the board
-//    }
-//
-//    // part of solution
 }

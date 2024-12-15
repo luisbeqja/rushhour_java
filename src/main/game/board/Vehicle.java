@@ -6,6 +6,7 @@ public class Vehicle {
     private final String cellValue; // e.g., "A" or "B"
     private int[][] position;
 
+    //TODO: create setters with some check and add them to constructor
     public Vehicle(String value, int[][] position) {
         this.cellValue = value;
         this.position = position;

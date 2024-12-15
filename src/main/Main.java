@@ -3,12 +3,14 @@ package main;
 import main.database.Create;
 import main.database.DatabaseConnection;
 import main.game.board.Board;
+import main.game.board.Vehicle;
 import main.game.gamesession.GameSession;
 import main.game.LeaderBoard;
 import main.game.Player;
 import main.game.board.BoardRules;
 
 import java.time.LocalDate;
+import java.util.Map;
 import java.util.Scanner;
 import java.sql.SQLException;
 
@@ -50,8 +52,14 @@ public class Main {
         LeaderBoard leaderBoard = new LeaderBoard(playerTest);
         GameSession gameSession = new GameSession(0, "", "");
 
+        //NOTE: select level
+        //TODO: player can select level from given array of levels
+        int selectedLevel = 1;
+
+        Map<String, Vehicle> boardMap = board.createBoard();
+
         BoardRules boardRules = new BoardRules(
-                board.getVisualBoard()
+                board.getVisualBoard(boardMap)
         );
 
         // Setup database connection for player data storage
@@ -60,40 +68,50 @@ public class Main {
         create.createPlayerTable(); // Create player table in the database
 
         // NOTE: print out the board
+        //TODO: Make winChecker work
+        //TODO: If there is no cars between "X" car and "Escape" -> win!
         while (!winCheck) {
-            System.out.println(board);
+            System.out.println(board.toString());
 
             System.out.println("Choose a vehicle: ");
-            String vehicle = sc.nextLine();
+            String vehicleStr = sc.nextLine();
+
+            Vehicle vehicle = boardMap.get(vehicleStr);
 
             //check if user input for vehicle is actually a vehicle that is on the board
-            if (!BoardRules.isVehicleOnBoard(vehicle)) {
+            if (!BoardRules.isVehicleOnBoard(vehicleStr)) {
                 System.out.println("That is not a vehicle on the board.");
 
             }
 
             //check if the vehicle can move horizontally AND if it is actually on the board
-            if (BoardRules.canVehicleMoveHorizontally(vehicle) && BoardRules.isVehicleOnBoard(vehicle)) {
+            if (BoardRules.canVehicleMoveHorizontally(vehicleStr) && BoardRules.isVehicleOnBoard(vehicleStr)) {
                 System.out.println("Choose a direction(right/left): ");
                 String direction = sc.nextLine();
 
+                //TODO: 1) ask for number of moves and check for possibility -> move if possible
+                //TODO: 2) add updateArrayBoard for every direction
+
                 switch (direction.toLowerCase()) {
-                    case "right" -> System.out.println("Can Move Right " + BoardRules.canVehicleMoveRight(vehicle, 1));
-                    case "left" -> System.out.println("Can Move Left " + BoardRules.canVehicleMoveLeft(vehicle, 2));
+                    case "right" -> {
+                        System.out.println("Can Move Right " + BoardRules.canVehicleMoveRight(vehicleStr, 1));
+                        board.updateArrayBoard(boardMap, vehicle, direction, 1);
+                    }
+                    case "left" -> System.out.println("Can Move Left " + BoardRules.canVehicleMoveLeft(vehicleStr, 2));
                     default -> System.out.println("Invalid direction: " + direction);
                 }
                 //check if vehicle can move vertically AND if it is also actually on the board
-            } else if (BoardRules.canVehicleMoveVertically(vehicle) && BoardRules.isVehicleOnBoard(vehicle)) {
+            } else if (BoardRules.canVehicleMoveVertically(vehicleStr) && BoardRules.isVehicleOnBoard(vehicleStr)) {
                 System.out.println("Choose a direction(up/down): ");
                 String direction = sc.nextLine();
 
                 switch (direction.toLowerCase()) {
-                    case "down" -> System.out.println("Can Move Down " + BoardRules.canVehicleMoveDown(vehicle, 2));
-                    case "up" -> System.out.println("Can Move up " + BoardRules.canVehicleMoveUp(vehicle, 1));
+                    case "down" -> System.out.println("Can Move Down " + BoardRules.canVehicleMoveDown(vehicleStr, 2));
+                    case "up" -> System.out.println("Can Move up " + BoardRules.canVehicleMoveUp(vehicleStr, 1));
                     default -> System.out.println("Invalid direction: " + direction);
                 }
             }
-            //TODO: move() for vehicle
+            //TODO: implement counter of turns (connect it with GameSession?)
         }
     }
 
