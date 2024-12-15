@@ -29,23 +29,22 @@ public class Main {
 
         // Loop until a valid email is entered
         String email;
+        Player tempPlayer; // Temporary Player to validate email
         while (true) {
             System.out.println("Enter your email: ");
             email = sc.nextLine(); // Get email from input
 
-            // Check if the entered email is valid
-            if (isValidEmail(email)) {
+            // Try creating a temporary player to validate the email
+            try {
+                tempPlayer = new Player(name, LocalDate.now().toString(), email);
                 break; // Exit loop if email is valid
-            } else {
-                System.out.println("Invalid email. Enter again: "); // Prompt for re-entry on invalid email
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage() + " Enter again: "); // Prompt for re-entry on invalid email
             }
         }
 
-        // Get the current date to use for player registration
-        LocalDate date = LocalDate.now();
-
-        // Create a new Player object with the entered name, date, and email
-        Player playerTest = new Player(name, date.toString(), email);
+        // Create a new Player object with the entered name, date, and valid email
+        Player playerTest = new Player(name, LocalDate.now().toString(), email);
         System.out.println(playerTest.toString()); // Output player details
 
         // Initialize leaderboard and game session instances
@@ -113,12 +112,6 @@ public class Main {
             }
             //TODO: implement counter of turns (connect it with GameSession?)
         }
-    }
-
-    // Method to check for valid email format
-    private static boolean isValidEmail(String email) {
-        // Simple email validation (checks for "@" and "." in the correct order)
-        return email.contains("@") && email.lastIndexOf(".") > email.indexOf("@");
     }
 
     // Method to check for winning condition in the game

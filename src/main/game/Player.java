@@ -1,9 +1,6 @@
 package main.game;
 
 import java.util.Date;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 
 public class Player {
 
@@ -18,16 +15,6 @@ public class Player {
         this.setJoinDate(joinDate);
         this.setEmail(email);
     }
-
-  /*  public Player(String userName, String joinDate, String email) {
-        this.setUserName(userName);
-        this.setJoinDate(joinDate);
-        this.setEmail(email);
-    }
-
-   */
-
-
 
     public Player(String userName, String joinDate, String email) {
         // Validate inputs in this constructor
@@ -44,7 +31,6 @@ public class Player {
         this.setEmail(email);
     }
 
-
     // GETTERS
     public int getScore() {
         return score;
@@ -53,6 +39,7 @@ public class Player {
     public String getUserName() {
         return userName;
     }
+
     public String getJoinDate() {
         return joinDate;
     }
@@ -73,18 +60,67 @@ public class Player {
     public void setJoinDate(String joinDate) {
         this.joinDate = joinDate;
     }
+
     public void setEmail(String email) {
         this.email = email;
     }
 
-    // Method to validate email
+    // Method to validate email using character checks
     private boolean isValidEmail(String email) {
-        String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
-        Pattern pattern = Pattern.compile(emailRegex);
-        Matcher matcher = pattern.matcher(email);
-        return matcher.matches();
+        int atIndex = email.indexOf('@');
+        // Check if there is exactly one '@'
+        if (atIndex == -1 || email.indexOf('@', atIndex + 1) != -1) {
+            return false; // No '@' or more than one '@'
+        }
+
+        // Check if there's at least one character before '@'
+        if (atIndex == 0) {
+            return false; // '@' is the first character
+        }
+
+        // Split into local and domain parts
+        String localPart = email.substring(0, atIndex);
+        String domainPart = email.substring(atIndex + 1);
+
+        // Check if there's at least one character in domain part
+        if (domainPart.isEmpty()) {
+            return false; // No characters after '@'
+        }
+
+        // Check for a dot in the domain part
+        int dotIndex = domainPart.indexOf('.');
+        if (dotIndex == -1 || dotIndex == 0 || dotIndex == domainPart.length() - 1) {
+            return false; // No '.' in the domain, or '.' is at the start/end of domain
+        }
+
+        // Validate characters in local part
+        for (char c : localPart.toCharArray()) {
+            if (!isValidLocalChar(c)) {
+                return false; // Invalid character in local part
+            }
+        }
+
+        // Validate characters in domain part
+        for (char c : domainPart.toCharArray()) {
+            if (!isValidDomainChar(c)) {
+                return false; // Invalid character in domain part
+            }
+        }
+
+        return true; // All checks passed, the email is valid
     }
 
+    // Helper method to check valid characters in the local part of the email
+    private boolean isValidLocalChar(char c) {
+        // Valid characters for local part
+        return Character.isLetterOrDigit(c) || c == '+' || c == '_' || c == '.' || c == '-';
+    }
+
+    // Helper method to check valid characters in the domain part of the email
+    private boolean isValidDomainChar(char c) {
+        // Valid characters for domain part
+        return Character.isLetterOrDigit(c) || c == '.' || c == '-';
+    }
 
     @Override
     public String toString() {
