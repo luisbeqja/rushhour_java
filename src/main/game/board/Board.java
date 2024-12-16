@@ -1,7 +1,8 @@
 package main.game.board;
 
-
 import java.util.Map;
+
+import static main.game.board.BoardLevels.getLevel;
 
 public class Board {
 
@@ -18,6 +19,7 @@ public class Board {
     public boolean isBoardEmpty() {
         return isBoardEmpty;
     }
+
     public String[][] getVisualBoard(Map<String, Vehicle> vehicles) {
         this.createArrayBoard(vehicles);
         return visualBoard;
@@ -30,94 +32,66 @@ public class Board {
 
     /*METHODS*/
 
-    //NOTE: Insert vehicles from level as Map<String, Vehicle>
-    //TODO: add here levelName
+    // Insert vehicles from level as Map<String, Vehicle>
     public Map<String, Vehicle> createBoard(int levelId) {
-        return BoardLevels.getLevel(levelId);
+        return getLevel(levelId);
     }
 
-    // NOTE: Insert the vehicles to the visualboard
+    // Insert the vehicles to the visual board
     public void createArrayBoard(Map<String, Vehicle> vehicles) {
-        for (Map.Entry<String, Vehicle> vehicle: vehicles.entrySet()) {
+        for (Map.Entry<String, Vehicle> vehicle : vehicles.entrySet()) {
             String vehicleValue = vehicle.getKey();
             int[][] vehiclePosition = vehicle.getValue().getPosition();
 
-            for (int[] position: vehiclePosition) {
+            for (int[] position : vehiclePosition) {
                 visualBoard[position[0]][position[1]] = vehicleValue;
             }
         }
-    };
+    }
 
-    // NOTE: Updating visualboard after move with new vehicle position
+    // Update visual board after move with new vehicle position
     public void updateArrayBoard(Map<String, Vehicle> vehicles, Vehicle vehicleToMove, String direction, int numberOfMoves) {
         // Select vehicle that we want to move
         Vehicle vehicle = vehicles.get(vehicleToMove.getCellValue());
 
-        // clear previous vehicle position from visualboard
-        for (int[] position: vehicle.getPosition()) {
+        // Clear previous vehicle position from visual board
+        for (int[] position : vehicle.getPosition()) {
             visualBoard[position[0]][position[1]] = null;
         }
 
-        // move vehicle
+        // Move vehicle
         vehicle.move(direction, numberOfMoves);
 
-        // displaying new position after move on the visualboard
-        for (int[] position: vehicle.getPosition()) {
+        // Display new position after move on the visual board
+        for (int[] position : vehicle.getPosition()) {
             visualBoard[position[0]][position[1]] = vehicleToMove.getCellValue();
         }
     }
 
-    public boolean hasWinningCondition() {
+    public boolean hasWinningCondition(Map<String, Vehicle> vehicles) {
+        // Check if vehicle "A" is in the last column
+        Vehicle targetVehicle = vehicles.get("A");
+
+        if (targetVehicle != null) {
+            // Get the vehicle's position
+            int[][] targetPosition = targetVehicle.getPosition();
+            int lastRow = targetPosition[0][0]; // Assume vehicle is horizontal for win condition
+
+            // Check if the vehicle's last part of the position is in the last column
+            if (targetVehicle.getPosition().length > 0) {
+                int lastColumnIndex = targetPosition[targetPosition.length - 1][1]; // Last occupied column
+                return lastColumnIndex == visualBoard[0].length - 1 && lastRow == targetPosition[0][0];
+            }
+        }
+
         return false;
     }
-    // Method to get the position of a vehicle on the board
-    public int getVehiclePosition(String vehicleKey) {
-        for (int i = 0; i < visualBoard.length; i++) {
-            for (int j = 0; j < visualBoard[i].length; j++) {
-                if (vehicleKey.equals(visualBoard[i][j])) {
-                    return i * visualBoard.length + j; // Return a single index (for easier path check)
-                }
-            }
-        }
-        return -1; // Return -1 if vehicle is not found
-    }
 
-    // Method to check if there are no vehicles between two positions (exclusive)
-    public boolean isPathClear(int start, int end) {
-        int startRow = start / visualBoard.length; // Calculate row for start position
-        int startCol = start % visualBoard.length; // Calculate column for start position
-        int endRow = end / visualBoard.length; // Calculate row for end position
-        int endCol = end % visualBoard.length; // Calculate column for end position
-
-        // Assuming start is to the left of end
-        if (startRow == endRow) { // Same row, horizontal movement
-            int minCol = Math.min(startCol, endCol) + 1; // Start checking from the next column
-            int maxCol = Math.max(startCol, endCol); // End at the column before the target
-
-            for (int col = minCol; col < maxCol; col++) {
-                if (visualBoard[startRow][col] != null) {
-                    return false; // There is a vehicle blocking the path
-                }
-            }
-        } else if (startCol == endCol) { // Same column, vertical movement
-            int minRow = Math.min(startRow, endRow) + 1; // Start checking from the next row
-            int maxRow = Math.max(startRow, endRow); // End at the row before the target
-
-            for (int row = minRow; row < maxRow; row++) {
-                if (visualBoard[row][startCol] != null) {
-                    return false; // There is a vehicle blocking the path
-                }
-            }
-        }
-
-        return true; // Path is clear
-    }
-
-    // NOTE: Print out the string for the board with the vehicles
+    // Print out the string for the board with the vehicles
     @Override
     public String toString() {
         int rows = visualBoard.length;
-        int cols = visualBoard.length;
+        int cols = visualBoard[0].length; // fix to use visualBoard[0].length
         StringBuilder sb = new StringBuilder();
 
         // Iterate over rows
@@ -139,7 +113,7 @@ public class Board {
 
         // Add the final horizontal divider
         sb.append("+");
-        sb.append("---+".repeat(visualBoard[0].length));
+        sb.append("---+".repeat(cols));
         sb.append("\n");
 
         return sb.toString();

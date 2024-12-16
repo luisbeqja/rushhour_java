@@ -4,7 +4,7 @@ import java.util.*;
 
 public class BoardLevels {
 
-    private static List<Map<String, Vehicle>> levels = new ArrayList<>();
+    private static final List<Map<String, Vehicle>> levels = new ArrayList<>();
 
     //TODO: add all levels to List and access them from List by index (maybe ordered list?)
     public BoardLevels() {
@@ -225,5 +225,9 @@ public class BoardLevels {
     // Method to access the level2 list
     public static Map<String, Vehicle> getLevel(int levelId) {
         return levels.get(levelId);
-    };
+    }
+
+
+
+
 }
