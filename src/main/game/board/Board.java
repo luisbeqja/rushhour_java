@@ -69,8 +69,8 @@ public class Board {
     }
 
     public boolean hasWinningCondition(Map<String, Vehicle> vehicles) {
-        // Check if vehicle "A" is in the last column
-        Vehicle targetVehicle = vehicles.get("A");
+        // Check if vehicle "X" is in the last column
+        Vehicle targetVehicle = vehicles.get("X");
 
         if (targetVehicle != null) {
             // Get the vehicle's position
