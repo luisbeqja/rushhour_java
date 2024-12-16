@@ -66,7 +66,7 @@ public class Player {
     }
 
     // Method to validate email using character checks
-    private boolean isValidEmail(String email) {
+    public static boolean isValidEmail(String email) {
         int atIndex = email.indexOf('@');
         // Check if there is exactly one '@'
         if (atIndex == -1 || email.indexOf('@', atIndex + 1) != -1) {
@@ -111,13 +111,13 @@ public class Player {
     }
 
     // Helper method to check valid characters in the local part of the email
-    private boolean isValidLocalChar(char c) {
+    private static boolean isValidLocalChar(char c) {
         // Valid characters for local part
         return Character.isLetterOrDigit(c) || c == '+' || c == '_' || c == '.' || c == '-';
     }
 
     // Helper method to check valid characters in the domain part of the email
-    private boolean isValidDomainChar(char c) {
+    private static boolean isValidDomainChar(char c) {
         // Valid characters for domain part
         return Character.isLetterOrDigit(c) || c == '.' || c == '-';
     }

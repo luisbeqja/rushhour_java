@@ -33,15 +33,15 @@ DROP TABLE IF EXISTS players;
             throw new SQLException("Failed to create statement for DB operation.");
         }
         statement.executeUpdate("""
-CREATE TABLE IF NOT EXISTS players (
-    player_id INTEGER
-        CONSTRAINT pk_player PRIMARY KEY,
-    player_name VARCHAR(10) NOT NULL,
-    join_date DATE
-        CONSTRAINT ch_players_join_date CHECK (join_date <= '2024-12-5'),
-    email VARCHAR(50) NOT NULL
-);
-""");
+            CREATE TABLE IF NOT EXISTS players (
+                player_id INTEGER
+                    CONSTRAINT pk_player PRIMARY KEY,
+                player_name VARCHAR(10) NOT NULL,
+                join_date DATE
+                    CONSTRAINT ch_players_join_date CHECK (join_date <= '2024-12-5'),
+                email VARCHAR(50) NOT NULL
+            );
+        """);
         System.out.println("Player table created successfully.");
     }
     //create sessions table
@@ -51,17 +51,17 @@ CREATE TABLE IF NOT EXISTS players (
             throw new SQLException("Failed to create statement for DB operation.");
         }
         statement.executeUpdate(""" 
-CREATE TABLE IF NOT EXISTS sessions (
-                sessions_id NUMERIC(4) PRIMARY KEY,
-                player_id INTEGER REFERENCES players(player_id),
-                start_date TIMESTAMP NOT NULL,
-                end_date TIMESTAMP NOT NULL,
-                total_turns NUMERIC(4) NOT NULL,
-                score NUMERIC(4) NOT NULL,
-                difficulty VARCHAR(6) CHECK (difficulty IN ('easy', 'medium', 'hard')) NOT NULL,
-                duration INTERVAL NOT NULL
-            );
-""");
+            CREATE TABLE IF NOT EXISTS sessions (
+                            sessions_id NUMERIC(4) PRIMARY KEY,
+                            player_id INTEGER REFERENCES players(player_id),
+                            start_date TIMESTAMP NOT NULL,
+                            end_date TIMESTAMP NOT NULL,
+                            total_turns NUMERIC(4) NOT NULL,
+                            score NUMERIC(4) NOT NULL,
+                            difficulty VARCHAR(6) CHECK (difficulty IN ('easy', 'medium', 'hard')) NOT NULL,
+                            duration INTERVAL NOT NULL
+                        );
+            """);
         System.out.println("Sessions table created successfully.");
     }
 

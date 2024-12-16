@@ -3,7 +3,6 @@ package main.database;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class DatabaseConnection {
     private static Connection connection;
@@ -14,7 +13,7 @@ public class DatabaseConnection {
 
 
     // TODO ASK about the PASSWORD from different pc's
-    private static final String PASSWORD = "Alephi001."; // Default PostgresSQL password (different from every pc)
+    private static final String PASSWORD = "2532002Luis."; // Default PostgresSQL password (different from every pc)
 
     public static Connection getConnection() {
         if (connection == null) {
