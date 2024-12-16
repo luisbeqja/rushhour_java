@@ -73,22 +73,35 @@ public class GamePage implements GameState {
 
                 //check if the vehicle can move horizontally AND if it is actually on the board
                 if (BoardRules.canVehicleMoveHorizontally(vehicleStr) && BoardRules.isVehicleOnBoard(vehicleStr)) {
-                    System.out.println("Choose a direction(right/left): ");
-                    String direction = scanner.nextLine();
+                    System.out.println("Choose a direction and number of moves (<r/l><n>): ");
+                    String directionAndMoves = scanner.nextLine();
+
+                    StringBuilder direction = new StringBuilder();
+                    StringBuilder numMoves = new StringBuilder();
+
+                    for (char ch: directionAndMoves.toCharArray()) {
+                        if (Character.isDigit(ch)) {
+                            numMoves.append(ch);
+                        } else if (Character.isLetter(ch)) {
+                            direction.append(ch);
+                        }
+                    }
+
+                    int numberOfMoves = Integer.parseInt(numMoves.toString());
 
                     //TODO: 1) ask for number of moves and check for possibility -> move if possible
                     //NOTE: moving vehicle to the left and right by 1 if possible
                     // and updating the board
-                    switch (direction.toLowerCase()) {
-                        case "right" -> {
-                            if (BoardRules.canVehicleMoveRight(vehicleStr, 1)) {
-                                board.updateArrayBoard(boardMap, vehicle, direction, 1);
+                    switch (direction.toString().toLowerCase()) {
+                        case "r" -> {
+                            if (BoardRules.canVehicleMoveRight(vehicleStr, numberOfMoves)) {
+                                board.updateArrayBoard(boardMap, vehicle, direction.toString(), numberOfMoves);
                                 flagForVehicle = false;
                             }
                         }
-                        case "left" -> {
-                            if (BoardRules.canVehicleMoveLeft(vehicleStr, 1)) {
-                                board.updateArrayBoard(boardMap, vehicle, direction, 1);
+                        case "l" -> {
+                            if (BoardRules.canVehicleMoveLeft(vehicleStr, numberOfMoves)) {
+                                board.updateArrayBoard(boardMap, vehicle, direction.toString(), numberOfMoves);
                                 flagForVehicle = false;
                             }
                         }
@@ -96,21 +109,34 @@ public class GamePage implements GameState {
                     }
                     //check if vehicle can move vertically AND if it is also actually on the board
                 } else if (BoardRules.canVehicleMoveVertically(vehicleStr) && BoardRules.isVehicleOnBoard(vehicleStr)) {
-                    System.out.println("Choose a direction(up/down): ");
-                    String direction = scanner.nextLine();
+                    System.out.println("Choose a direction and number of moves (<u/d><n>): ");
+                    String directionAndMoves = scanner.nextLine();
+
+                    StringBuilder direction = new StringBuilder();
+                    StringBuilder numMoves = new StringBuilder();
+
+                    for (char ch: directionAndMoves.toCharArray()) {
+                        if (Character.isDigit(ch)) {
+                            numMoves.append(ch);
+                        } else if (Character.isLetter(ch)) {
+                            direction.append(ch);
+                        }
+                    }
+
+                    int numberOfMoves = Integer.parseInt(numMoves.toString());
 
                     //NOTE: moving vehicle to the up and down by 1 if possible
                     // and updating the board
-                    switch (direction.toLowerCase()) {
-                        case "down" -> {
-                            if (BoardRules.canVehicleMoveDown(vehicleStr, 1)) {
-                                board.updateArrayBoard(boardMap, vehicle, direction, 1);
+                    switch (direction.toString().toLowerCase()) {
+                        case "d" -> {
+                            if (BoardRules.canVehicleMoveDown(vehicleStr, numberOfMoves)) {
+                                board.updateArrayBoard(boardMap, vehicle, direction.toString(), numberOfMoves);
                                 flagForVehicle = false;
                             }
                         }
-                        case "up" -> {
-                            if (BoardRules.canVehicleMoveUp(vehicleStr, 1)) {
-                                board.updateArrayBoard(boardMap, vehicle, direction, 1);
+                        case "u" -> {
+                            if (BoardRules.canVehicleMoveUp(vehicleStr, numberOfMoves)) {
+                                board.updateArrayBoard(boardMap, vehicle, direction.toString(), numberOfMoves);
                                 flagForVehicle = false;
                             }
                         }

@@ -23,22 +23,22 @@ public class Vehicle {
     // NOTE: move func for vehicle
     public void move(String direction, int numberOfMoves) {
         switch (direction) {
-            case "up" -> {
+            case "u" -> {
                 for (int i = 0; i < this.position.length; i++) {
                     this.position[i][0] -= numberOfMoves;
                 }
             }
-            case "down" -> {
+            case "d" -> {
                 for (int i = 0; i < this.position.length; i++) {
                     this.position[i][0] += numberOfMoves;
                 }
             }
-            case "left" -> {
+            case "l" -> {
                 for (int i = 0; i < this.position.length; i++) {
                     this.position[i][1] -= numberOfMoves;
                 }
             }
-            case "right" -> {
+            case "r" -> {
                 for (int i = 0; i < this.position.length; i++) {
                     this.position[i][1] += numberOfMoves;
                 }
