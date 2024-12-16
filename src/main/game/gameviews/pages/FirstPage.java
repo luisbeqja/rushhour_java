@@ -30,8 +30,10 @@ public class FirstPage implements GameState {
             context.setState(new SetUpPage()); // Switch to Gameplay State
         } else if (choice == 3) {
             System.exit(0); // Exit game
+        } else if (choice == 2) {
+            context.setState(new TutorialPage()); //Switch to Tutorial page
         }
 
-        // TODO: implement tutorial page
+        // TODO: implement tutorial page DONE :3
     }
 }
