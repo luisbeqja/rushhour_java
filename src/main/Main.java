@@ -64,7 +64,16 @@ public class Main {
         // Setup database connection for player data storage
         DatabaseConnection.getConnection();
         Create create = new Create(); // Instance to handle database table creation
-        create.createPlayerTable(); // Create player table in the database
+
+        // CREATE CLASS
+        try {
+            create.createPlayersTable();
+            create.createSessionsTable();
+            create.createBoardstatesTable();
+            System.out.println("All tables created successfully.");
+        } catch (Exception e) {
+            System.err.println("Error creating tables: " + e.getMessage());
+        }
 
         // NOTE: print out the board
         //TODO: Make winChecker work
