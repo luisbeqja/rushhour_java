@@ -32,8 +32,8 @@ public class Board {
 
     //NOTE: Insert vehicles from level as Map<String, Vehicle>
     //TODO: add here levelName
-    public Map<String, Vehicle> createBoard() {
-        return BoardLevels.getLevel();
+    public Map<String, Vehicle> createBoard(int levelId) {
+        return BoardLevels.getLevel(levelId);
     }
 
     // NOTE: Insert the vehicles to the visualboard
