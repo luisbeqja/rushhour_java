@@ -223,7 +223,7 @@ public class BoardLevels {
 
 
     // Method to access the level2 list
-    public static Map<String, Vehicle> getLevel() {
-        return levels.get(0);
+    public static Map<String, Vehicle> getLevel(int levelId) {
+        return levels.get(levelId);
     };
 }

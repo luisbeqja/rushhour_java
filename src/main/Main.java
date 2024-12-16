@@ -10,6 +10,7 @@ import main.game.Player;
 import main.game.board.BoardRules;
 
 import java.time.LocalDate;
+import java.util.InputMismatchException;
 import java.util.Map;
 import java.util.Scanner;
 import java.sql.SQLException;
@@ -53,9 +54,36 @@ public class Main {
 
         //NOTE: select level
         //TODO: player can select level from given array of levels
-        int selectedLevel = 1;
+        System.out.println("Select a level:\n" +
+                "1 (easy)\n" +
+                "2 (easy)\n" +
+                "3 (easy)\n" +
+                "4 (medium)\n" +
+                "5 (medium)\n" +
+                "6 (medium)\n" +
+                "7 (hard)\n" +
+                "8 (hard)\n" +
+                "9 (hard)\n");
+        boolean validLevel = false;
+        int levelId = 0;
+        while (!validLevel) {
+            try {
+                levelId = (sc.nextInt() - 1);
 
-        Map<String, Vehicle> boardMap = board.createBoard();
+                if (levelId >= 1 && levelId <= 9) {
+                    validLevel = true;
+                    sc.nextLine(); //clear buffer
+                } else {
+                    System.out.println("Not a valid level. Select again: ");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Input is not a number. Select again: ");
+                sc.nextLine(); //clear buffer
+            }
+        }
+
+
+        Map<String, Vehicle> boardMap = board.createBoard(levelId);
 
         BoardRules boardRules = new BoardRules(
                 board.getVisualBoard(boardMap)
@@ -136,10 +164,14 @@ public class Main {
             }
             //TODO: implement counter of turns (connect it with GameSession?)
         }
+        if (winCheck()) {
+            winCheck = true;
+            System.out.println("You've won!");
+        }
     }
 
     // Method to check for winning condition in the game
-    private static boolean checkWinCondition(Board board) {
-        return board.hasWinningCondition(); // Call the board's method to check if the winning condition is met
+    private static boolean checkWinCondition() {
+        return winCheck(); // Call the board's method to check if the winning condition is met
     }
 }
