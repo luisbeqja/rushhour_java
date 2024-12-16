@@ -62,18 +62,18 @@ public class Board {
         // Move vehicle
         vehicle.move(direction, numberOfMoves);
 
-        // Display new position after move on the visual board
-        for (int[] position : vehicle.getPosition()) {
+        // displaying new position after move on the visualboard
+        for (int[] position: vehicle.getPosition()) {
             visualBoard[position[0]][position[1]] = vehicleToMove.getCellValue();
         }
     }
 
     public boolean hasWinningCondition(Map<String, Vehicle> vehicles) {
-        // Check if vehicle "A" is in the last column
-        Vehicle targetVehicle = vehicles.get("A");
+        // Check if vehicle "X" is in the last column
+        Vehicle targetVehicle = vehicles.get("X");
 
         if (targetVehicle != null) {
-            // Get the vehicle's position
+            // Get the vehicle's positio
             int[][] targetPosition = targetVehicle.getPosition();
             int lastRow = targetPosition[0][0]; // Assume vehicle is horizontal for win condition
 
@@ -91,7 +91,7 @@ public class Board {
     @Override
     public String toString() {
         int rows = visualBoard.length;
-        int cols = visualBoard[0].length; // fix to use visualBoard[0].length
+        int cols = visualBoard.length;
         StringBuilder sb = new StringBuilder();
 
         // Iterate over rows
@@ -113,7 +113,7 @@ public class Board {
 
         // Add the final horizontal divider
         sb.append("+");
-        sb.append("---+".repeat(cols));
+        sb.append("---+".repeat(visualBoard[0].length));
         sb.append("\n");
 
         return sb.toString();

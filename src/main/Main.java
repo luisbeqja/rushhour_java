@@ -10,7 +10,6 @@ import static main.game.board.BoardRules.winCheck;
 
 public class Main {
     public static void main(String[] args) throws SQLException {
-        // Create a new board instance without any preset condition
         GameContext context = new GameContext();
         context.setState(new FirstPage()); // Start with Main Menu
         context.start(); // Begin game loop

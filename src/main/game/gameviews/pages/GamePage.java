@@ -14,24 +14,14 @@ import java.util.Scanner;
 public class GamePage implements GameState {
 
     int levelId = 1;
-
+    int numberOfMoves = 0;
     public GamePage(int levelId) {
         this.levelId = levelId;
     }
 
     @Override
     public void render() {
-        System.out.print("""
-                Welcome to Rush Hour - by Superchicche
-                --------------------------------------
-                Card -> 12 Expert
-                -------------------------------------
-                
-                Move n. 3
-                
-                Make your move\s
-                --------------
-                """);
+        System.out.print(templateHeader());
     }
 
     @Override
@@ -58,7 +48,12 @@ public class GamePage implements GameState {
         while (true) {
             System.out.print("\033[H\033[2J");
             System.out.flush();
+            System.out.print(templateHeader());
             System.out.println(board);
+
+
+
+            numberOfMoves++;
             // flag for while loop choosing vehicle and moving it
             boolean flagForVehicle = true;
 
@@ -125,5 +120,21 @@ public class GamePage implements GameState {
             }
             //TODO: implement counter of turns (connect it with GameSession?)
         }
+    }
+
+    private String templateHeader() {
+        return """
+                Welcome to Rush Hour - by Superchicche
+                --------------------------------------
+                Card -> card id number""" + " " + (levelId + 1) + """
+                
+                -------------------------------------
+                
+                Move n.""" + " " + numberOfMoves + """
+                
+                Make your move
+                
+                -------------------------------------
+                """;
     }
 }
