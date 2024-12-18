@@ -95,7 +95,7 @@ public class Board {
         StringBuilder sb = new StringBuilder();
 
         // Iterate over rows
-        for (String[] strings : visualBoard) {
+        for (int i = 0; i < rows; i++) {
             // Add the horizontal divider
             sb.append("+");
             sb.append("---+".repeat(cols));
@@ -105,8 +105,12 @@ public class Board {
             sb.append("|");
             for (int j = 0; j < cols; j++) {
                 // Replace null with a space
-                String cell = strings[j] == null ? " " : strings[j];
-                sb.append(" ").append(cell.toUpperCase()).append(" |");
+                String cell = visualBoard[i][j] == null ? " " : visualBoard[i][j];
+                if (i == 2 && j == 5) {
+                    sb.append(" ").append(cell.toUpperCase()).append(" ");
+                } else {
+                    sb.append(" ").append(cell.toUpperCase()).append(" |");
+                }
             }
             sb.append("\n");
         }
