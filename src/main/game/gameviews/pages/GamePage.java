@@ -13,7 +13,7 @@ import java.util.Scanner;
 
 public class GamePage implements GameState {
 
-    int levelId = 1;
+    int levelId;
     int numberOfMoves = 0;
     public GamePage(int levelId) {
         this.levelId = levelId;
@@ -51,7 +51,22 @@ public class GamePage implements GameState {
             System.out.print(templateHeader());
             System.out.println(board);
 
+            if (board.hasWinningCondition(boardMap)) {
+                System.out.print("\033[H\033[2J");
+                System.out.flush();
+                System.out.print("""
+                        
+                        
+                        
+                        YOU WON!
+                        
+                        
+                        
+                        
+                        """);
+                System.exit(0);
 
+            } // Exit game;
 
             numberOfMoves++;
             // flag for while loop choosing vehicle and moving it

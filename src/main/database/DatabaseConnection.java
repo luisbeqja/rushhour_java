@@ -13,7 +13,7 @@ public class DatabaseConnection {
 
 
     // TODO ASK about the PASSWORD from different pc's
-    private static final String PASSWORD = "2532002Luis."; // Default PostgresSQL password (different from every pc)
+    private static final String PASSWORD = "2532002Luis"; // Default PostgresSQL password (different from every pc)
 
     public static Connection getConnection() {
         if (connection == null) {
