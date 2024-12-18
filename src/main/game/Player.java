@@ -1,5 +1,8 @@
 package main.game;
 
+import main.database.Insert;
+
+import java.sql.SQLException;
 import java.util.Date;
 
 public class Player {
@@ -120,6 +123,17 @@ public class Player {
     private static boolean isValidDomainChar(char c) {
         // Valid characters for domain part
         return Character.isLetterOrDigit(c) || c == '.' || c == '-';
+    }
+
+
+    // (player_name, join_date, email)
+    public void addNewPlayerToDb() throws SQLException {
+        Insert insert = new Insert();
+        insert.insertPlayer(
+                this.getUserName(),
+                this.getJoinDate(),
+                this.getEmail()
+        );
     }
 
     @Override

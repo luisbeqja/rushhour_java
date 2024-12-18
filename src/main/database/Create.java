@@ -3,42 +3,18 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class Create {
-
-    private Statement createStatement() {
-        try {
-            return DatabaseConnection.getConnection().createStatement();
-        } catch (SQLException e) {
-            System.err.println("Connection to DB failed!" + e.getMessage());
-            return null;
-        }
-    }
-
-    //Drop tables
-    public void dropTables() throws SQLException {
-        Statement statement = createStatement();
-        if (statement == null) {
-            throw new SQLException("Failed to create statement for DB operation.");
-        }
-        statement.executeUpdate("""
-DROP TABLE IF EXISTS boardstates;
-DROP TABLE IF EXISTS sessions;
-DROP TABLE IF EXISTS players;
-""");
-    }
-
     //create player table
     public void createPlayersTable() throws SQLException {
-        Statement statement = createStatement();
+        Statement statement = DatabaseConnection.createStatement();
         if (statement == null) {
             throw new SQLException("Failed to create statement for DB operation.");
         }
         statement.executeUpdate("""
             CREATE TABLE IF NOT EXISTS players (
-                player_id INTEGER
+                player_id SERIAL
                     CONSTRAINT pk_player PRIMARY KEY,
-                player_name VARCHAR(10) NOT NULL,
-                join_date DATE
-                    CONSTRAINT ch_players_join_date CHECK (join_date <= '2024-12-5'),
+                player_name VARCHAR(50) NOT NULL,
+                join_date DATE,
                 email VARCHAR(50) NOT NULL
             );
         """);
@@ -46,7 +22,7 @@ DROP TABLE IF EXISTS players;
     }
     //create sessions table
     public void createSessionsTable() throws SQLException {
-        Statement statement = createStatement();
+        Statement statement = DatabaseConnection.createStatement();
         if (statement == null) {
             throw new SQLException("Failed to create statement for DB operation.");
         }
@@ -67,7 +43,7 @@ DROP TABLE IF EXISTS players;
 
     //Create boards states table
     public void createBoardstatesTable() throws SQLException {
-        Statement statement = createStatement();
+        Statement statement = DatabaseConnection.createStatement();
         if (statement == null) {
             throw new SQLException("Failed to create statement for DB operation.");
         }
@@ -82,5 +58,4 @@ CREATE TABLE IF NOT EXISTS boardstates (
 """);
         System.out.println("Boardstates table created successfully.");
     }
-
 }
