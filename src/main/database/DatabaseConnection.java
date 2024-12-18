@@ -3,6 +3,7 @@ package main.database;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class DatabaseConnection {
     private static Connection connection;
@@ -27,5 +28,13 @@ public class DatabaseConnection {
             }
         }
         return connection;
+    }
+    static Statement createStatement() {
+        try {
+            return getConnection().createStatement();
+        } catch (SQLException e) {
+            System.err.println("Connection to DB failed!" + e.getMessage());
+            return null;
+        }
     }
 }

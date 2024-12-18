@@ -1,11 +1,13 @@
 package main.game.gameviews.pages;
 
+import main.database.Create;
 import main.game.GameContext;
 import main.game.LeaderBoard;
 import main.game.Player;
 import main.game.gamesession.GameSession;
 import main.game.gameviews.GameState;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.Scanner;
@@ -23,8 +25,8 @@ public class CreatePlayer implements GameState {
     }
 
     @Override
-    public void handleInput(GameContext context) {
-
+    public void handleInput(GameContext context) throws SQLException {
+        Create create = new Create();
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("Select a username (it will be public in the leaderboard): ");
@@ -47,6 +49,10 @@ public class CreatePlayer implements GameState {
                 currentDate.toString(),
                 email
         );
+
+        create.createPlayersTable();
+
+        newPlayer.addNewPlayerToDb();
 
         LeaderBoard leaderBoard = new LeaderBoard(newPlayer);
         // Initialize leaderboard and game session instances

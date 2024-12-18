@@ -2,6 +2,8 @@ package main.game;
 
 import main.game.gameviews.GameState;
 
+import java.sql.SQLException;
+
 public class GameContext {
     private GameState currentState;
     boolean winCheck = false;
@@ -10,7 +12,7 @@ public class GameContext {
         this.currentState = state;
     }
 
-    public void start() {
+    public void start() throws SQLException {
         while (!winCheck) {
             clearScreen();
             currentState.render(); // Render current state

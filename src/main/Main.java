@@ -1,4 +1,5 @@
 package main;
+import main.database.Drop;
 import main.game.GameContext;
 
 
@@ -10,8 +11,13 @@ import static main.game.board.BoardRules.winCheck;
 
 public class Main {
     public static void main(String[] args) throws SQLException {
+        Drop drop = new Drop();
         GameContext context = new GameContext();
         context.setState(new FirstPage()); // Start with Main Menu
+
+        //TODO: remember to remove this in the final code
+        //drop.dropTables();
+
         context.start(); // Begin game loop
     }
 

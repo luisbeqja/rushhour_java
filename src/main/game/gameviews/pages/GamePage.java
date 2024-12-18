@@ -2,6 +2,7 @@ package main.game.gameviews.pages;
 
 import main.database.Create;
 import main.database.DatabaseConnection;
+import main.database.Drop;
 import main.game.GameContext;
 import main.game.board.Board;
 import main.game.board.BoardRules;
@@ -35,8 +36,6 @@ public class GamePage implements GameState {
         Scanner scanner = new Scanner(System.in);
         // CREATE CLASS
         try {
-            create.dropTables();
-            create.createPlayersTable();
             create.createSessionsTable();
             create.createBoardstatesTable();
             System.out.println("All tables created successfully.");
