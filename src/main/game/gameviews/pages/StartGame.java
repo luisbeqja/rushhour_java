@@ -23,16 +23,16 @@ Let's get started.
 
         System.out.print("""
         Select a level:
-        1 (easy)
-        2 (easy)
-        3 (easy)
-        4 (medium)
-        5 (medium)
-        6 (medium)
-        7 (hard)
-        8 (hard)
-        9 (hard)
-        Your choose:
+        1. (easy)
+        2. (easy)
+        3. (easy)
+        4. (medium)
+        5. (medium)
+        6. (medium)
+        7. (hard)
+        8. (hard)
+        9. (hard)
+        Your choice:
         """);
         int levelId = 1;
 
@@ -46,10 +46,10 @@ Let's get started.
                     validLevel = true;
                     scanner.nextLine();
                 } else {
-                    System.out.println("Not a valid level. Select again: ");
+                    System.out.println("That is not a valid level. Please select again: ");
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Input is not a number. Select again: ");
+                System.out.println("The input is not a number. Please select again: ");
                 scanner.nextLine(); //clear buffer
             }
         }

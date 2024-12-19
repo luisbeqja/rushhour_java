@@ -34,7 +34,7 @@ public class CreatePlayer implements GameState {
         String email;
 
         do {
-            System.out.print("Select an Email (it will be private you can use it to save your progress): ");
+            System.out.print("Select an Email (it will be private, you can use it to save your progress): ");
             email = scanner.nextLine(); // Get email from input
 
             // Try creating a temporary player to validate the email
@@ -58,7 +58,7 @@ public class CreatePlayer implements GameState {
         // Initialize leaderboard and game session instances
         GameSession gameSession = new GameSession(0, "", "");
 
-        System.out.println("Welcome aboard \n" + newPlayer);
+        System.out.println("Welcome aboard! \n" + newPlayer);
 
         context.setState(new StartGame());
     }

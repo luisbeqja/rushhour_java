@@ -57,7 +57,7 @@ public class GamePage implements GameState {
                         
                         
                         
-                        YOU WON!
+                        ✧｡٩(ˊᗜˋ )و✧*｡ YOU WON! ദ്ദി(˵ •̀ ᴗ - ˵) ✧
                         
                         
                         
@@ -119,7 +119,7 @@ public class GamePage implements GameState {
                                 flagForVehicle = false;
                             }
                         }
-                        default -> System.out.println("Invalid direction: " + direction);
+                        default -> System.out.println("That is not a valid direction!");
                     }
                     //check if vehicle can move vertically AND if it is also actually on the board
                 } else if (BoardRules.canVehicleMoveVertically(vehicleStr) && BoardRules.isVehicleOnBoard(vehicleStr)) {
@@ -154,7 +154,7 @@ public class GamePage implements GameState {
                                 flagForVehicle = false;
                             }
                         }
-                        default -> System.out.println("Invalid direction: " + direction);
+                        default -> System.out.println("That is not a valid direction!");
                     }
                 }
             }

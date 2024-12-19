@@ -15,9 +15,9 @@ public class FirstPage implements GameState {
                 --------------------------------------
                 Make your choose by select one of the following options:
                 
-                1) start a game
-                2) take a look to the tutorial
-                3) quit
+                1) Start a game
+                2) Take a look to the tutorial
+                3) Quit
                 -------------------------------------
                 """);
     }
