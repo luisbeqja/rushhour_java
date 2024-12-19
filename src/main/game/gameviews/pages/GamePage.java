@@ -27,8 +27,13 @@ public class GamePage implements GameState {
 
     @Override
     public void handleInput(GameContext context) {
+
+        // Creating a board
         Board board = new Board(false);
+
+        // Filling the board as Map with vehicles from selected level
         Map<String, Vehicle> boardMap = board.createBoard(levelId);
+
         new BoardRules(board.getVisualBoard(boardMap));
         // Setup database connection for player data storage
         DatabaseConnection.getConnection();
@@ -68,9 +73,14 @@ public class GamePage implements GameState {
             } // Exit game;
 
             numberOfMoves++;
+
             // flag for while loop choosing vehicle and moving it
+            // When flagForVehicle = false -> next turn
             boolean flagForVehicle = true;
 
+            // Loop for validating vehicle input
+            // If everything is correct - moves vehicle and -> next turn
+            // If something is wrong - ask for vehicle until everything is fine
             while (flagForVehicle) {
                 // choose vehicle
                 System.out.println("Choose a vehicle: ");
@@ -79,86 +89,28 @@ public class GamePage implements GameState {
                 //take instance of Vehicle class of this vehicle from the board
                 Vehicle vehicle = boardMap.get(vehicleStr);
 
-
                 //check if user input for vehicle is actually a vehicle that is on the board
                 if (!BoardRules.isVehicleOnBoard(vehicleStr)) {
                     System.out.println("That is not a vehicle on the board.");
                 }
-
-                //check if the vehicle can move horizontally AND if it is actually on the board
-                if (BoardRules.canVehicleMoveHorizontally(vehicleStr) && BoardRules.isVehicleOnBoard(vehicleStr)) {
+                //check if the vehicle can move horizontally
+                else if (BoardRules.canVehicleMoveHorizontally(vehicleStr)) {
                     System.out.println("Choose a direction and number of moves (<r/l><n>): ");
-                    String directionAndMoves = scanner.nextLine();
 
-                    StringBuilder direction = new StringBuilder();
-                    StringBuilder numMoves = new StringBuilder();
-
-                    for (char ch: directionAndMoves.toCharArray()) {
-                        if (Character.isDigit(ch)) {
-                            numMoves.append(ch);
-                        } else if (Character.isLetter(ch)) {
-                            direction.append(ch);
-                        }
-                    }
-
-                    int numberOfMoves = Integer.parseInt(numMoves.toString());
-
-                    //TODO: 1) ask for number of moves and check for possibility -> move if possible
-                    //NOTE: moving vehicle to the left and right by 1 if possible
-                    // and updating the board
-                    switch (direction.toString().toLowerCase()) {
-                        case "r" -> {
-                            if (BoardRules.canVehicleMoveRight(vehicleStr, numberOfMoves)) {
-                                board.updateArrayBoard(boardMap, vehicle, direction.toString(), numberOfMoves);
-                                flagForVehicle = false;
-                            }
-                        }
-                        case "l" -> {
-                            if (BoardRules.canVehicleMoveLeft(vehicleStr, numberOfMoves)) {
-                                board.updateArrayBoard(boardMap, vehicle, direction.toString(), numberOfMoves);
-                                flagForVehicle = false;
-                            }
-                        }
-                        default -> System.out.println("That is not a valid direction!");
-                    }
-                    //check if vehicle can move vertically AND if it is also actually on the board
-                } else if (BoardRules.canVehicleMoveVertically(vehicleStr) && BoardRules.isVehicleOnBoard(vehicleStr)) {
-                    System.out.println("Choose a direction and number of moves (<u/d><n>): ");
-                    String directionAndMoves = scanner.nextLine();
-
-                    StringBuilder direction = new StringBuilder();
-                    StringBuilder numMoves = new StringBuilder();
-
-                    for (char ch: directionAndMoves.toCharArray()) {
-                        if (Character.isDigit(ch)) {
-                            numMoves.append(ch);
-                        } else if (Character.isLetter(ch)) {
-                            direction.append(ch);
-                        }
-                    }
-
-                    int numberOfMoves = Integer.parseInt(numMoves.toString());
-
-                    //NOTE: moving vehicle to the up and down by 1 if possible
-                    // and updating the board
-                    switch (direction.toString().toLowerCase()) {
-                        case "d" -> {
-                            if (BoardRules.canVehicleMoveDown(vehicleStr, numberOfMoves)) {
-                                board.updateArrayBoard(boardMap, vehicle, direction.toString(), numberOfMoves);
-                                flagForVehicle = false;
-                            }
-                        }
-                        case "u" -> {
-                            if (BoardRules.canVehicleMoveUp(vehicleStr, numberOfMoves)) {
-                                board.updateArrayBoard(boardMap, vehicle, direction.toString(), numberOfMoves);
-                                flagForVehicle = false;
-                            }
-                        }
-                        default -> System.out.println("That is not a valid direction!");
-                    }
+                    // If input correct - moves vehicle to direction on number of moves
+                    // And go to the next turn
+                    flagForVehicle = GamePageLogic.inputDirectionAndMoves(scanner,vehicleStr,board,boardMap,vehicle);
                 }
+                //check if the vehicle can move vertically
+                else if (BoardRules.canVehicleMoveVertically(vehicleStr)) {
+                    System.out.println("Choose a direction and number of moves (<u/d><n>): ");
+
+                    // If input correct - moves vehicle to direction on number of moves
+                    // And go to the next turn
+                    flagForVehicle = GamePageLogic.inputDirectionAndMoves(scanner,vehicleStr,board,boardMap,vehicle);
+                }
+
             }
-            //TODO: implement counter of turns (connect it with GameSession?)
         }
     }
 
