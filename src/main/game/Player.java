@@ -11,12 +11,21 @@ public class Player {
     private int score = 0;
     private String joinDate;
     private String email;
+    private int playerId;
 
     public Player(String userName, int score, String joinDate, String email) {
         this.setUserName(userName);
         this.setScore(score);
         this.setJoinDate(joinDate);
         this.setEmail(email);
+    }
+
+    public Player(int playerId, String userName, int score, String joinDate, String email) {
+        this.setUserName(userName);
+        this.setScore(score);
+        this.setJoinDate(joinDate);
+        this.setEmail(email);
+        this.setPlayerId(playerId);
     }
 
     public Player(String userName, String joinDate, String email) {
@@ -66,6 +75,10 @@ public class Player {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public void setPlayerId(int playerId) {
+        this.playerId = playerId;
     }
 
     // Method to validate email using character checks

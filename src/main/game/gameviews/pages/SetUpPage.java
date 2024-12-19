@@ -1,9 +1,11 @@
 package main.game.gameviews.pages;
 
+import main.database.Select;
 import main.game.GameContext;
 import main.game.Player;
 import main.game.gameviews.GameState;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class SetUpPage implements GameState {
@@ -22,22 +24,17 @@ public class SetUpPage implements GameState {
     }
 
     @Override
-    public void handleInput(GameContext context) {
+    public void handleInput(GameContext context) throws SQLException {
         Scanner scanner = new Scanner(System.in);
 
         String choice = scanner.nextLine();
         if (choice.equalsIgnoreCase("Y")) {
-            System.out.print("What is your username? ");
-            String username = scanner.nextLine();
+            System.out.print("What is your email? ");
+            String email = scanner.nextLine();
+            Select select = new Select();
+            Player currentPlayer =  select.getPlayerInfoByEmail(email);
 
-
-            // TODO: get user info from the Database
-            Player currentPlayer = new Player(
-                    "LuisBeqja02",
-                    1237,
-                    "25/03/2002",
-                    "luis@luis.com"
-            );
+            System.out.print("Hello, " + currentPlayer.getUserName() + " ready for a new game? ");
 
             context.setState(new StartGame());
         } else if (choice.equalsIgnoreCase("N")) {

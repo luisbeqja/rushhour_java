@@ -58,7 +58,11 @@ public class CreatePlayer implements GameState {
         // Initialize leaderboard and game session instances
         GameSession gameSession = new GameSession(0, "", "");
 
-        System.out.println("Welcome aboard! \n" + newPlayer);
+        System.out.println("Welcome aboard !" + newPlayer.getUserName());
+        System.out.println("Remember the Email you used to register, you can use it in the future to login ");
+        System.out.println();
+        System.out.println("Please enter to continue");
+        scanner.nextLine();
 
         context.setState(new StartGame());
     }
