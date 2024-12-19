@@ -15,9 +15,8 @@ public class SetUpPage implements GameState {
         System.out.println("""
                 Welcome to Rush Hour - by Superchicche
                 --------------------------------------
-                Ready to play !?
+                (★≧▽^))★☆ Ready to play !?
                 --------------------------------------
-                
                 Do you already have an account? (Y, N).
                 """);
     }

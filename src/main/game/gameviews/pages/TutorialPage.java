@@ -43,11 +43,11 @@ public class TutorialPage implements GameState {
                 validInput = true;
                 context.setState(new FirstPage());
             } else {
-                System.out.println("That is not a valid input. (Enter 1 to go back).");
+                System.out.println("That is not a valid input. Enter 1 to go back!");
                 scanner.nextLine();
             }
         } catch (InputMismatchException e) {
-            System.out.println("Input is not a number. Select again: ");
+            System.out.println("Input is not a number. Enter 1 to go back!");
             scanner.nextLine(); //clear buffer
         }
 

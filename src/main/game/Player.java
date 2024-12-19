@@ -22,11 +22,11 @@ public class Player {
     public Player(String userName, String joinDate, String email) {
         // Validate inputs in this constructor
         if (userName == null || userName.trim().isEmpty()) {
-            throw new IllegalArgumentException("User name cannot be null or empty.");
+            throw new IllegalArgumentException("Username cannot be null or empty.");
         }
 
         if (email == null || email.trim().isEmpty() || !isValidEmail(email)) {
-            throw new IllegalArgumentException("Email cannot be null, empty, or invalid.");
+            throw new IllegalArgumentException("Email cannot be null, empty, or invalid. (Syntax: name@provider.domain) ");
         }
 
         this.setUserName(userName);
@@ -139,7 +139,7 @@ public class Player {
     @Override
     public String toString() {
         return String.format("""
-                Player's name: %s
+                Player's username: %s
                 Player's email: %s
                 Player's score: %d
                 Player's join date: %s'

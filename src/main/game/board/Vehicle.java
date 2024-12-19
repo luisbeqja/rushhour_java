@@ -43,7 +43,7 @@ public class Vehicle {
                     this.position[i][1] += numberOfMoves;
                 }
             }
-            default -> System.out.println("Invalid direction");
+            default -> System.out.println("That is not a possible direction!");
         }
     }
 

@@ -73,13 +73,13 @@ public class BoardRules {
 
                     // Check if the move is out of bounds
                     if (newIndex >= row.length) {
-                        System.out.println("Cannot move right: Out of bounds at index " + newIndex);
+                        System.out.println("You can't move right! - Out of bounds");
                         return false; // Out of bounds
                     }
 
                     // Check if the space to the right is blocked
                     if (row[newIndex] != null) {
-                        System.out.println("Cannot move right: Blocked at index " + newIndex + " with value " + row[newIndex]);
+                        System.out.println("You can't move right! That way is blocked by another vehicle.");
                         return false; // Blocked space
                     }
                 }
@@ -109,13 +109,13 @@ public class BoardRules {
 
                     // Check if the move is out of bounds
                     if (newIndex < 0) {
-                        System.out.println("Cannot move left: Out of bounds at index " + newIndex);
+                        System.out.println("You can't move left! - Out of bounds");
                         return false; // Out of bounds
                     }
 
                     // Check if the space to the left is blocked
                     if (row[newIndex] != null) {
-                        System.out.println("Cannot move left: Blocked at index " + newIndex + " with value " + row[newIndex]);
+                        System.out.println("You can't move left! That way is blocked by another vehicle.");
                         return false; // Blocked space
                     }
                 }
@@ -155,12 +155,12 @@ public class BoardRules {
 
                     //check if move goes out of bounds
                     if (newIndex >= numRows) {
-                        System.out.println("Cannot move down: Out of bounds at index " + newIndex);
+                        System.out.println("You can't move down! - Out of bounds");
                         return false; //out of bounds
                     }
                     //check if the space below is blocked
                     if (board[newIndex][col] != null) {
-                        System.out.println("Cannot move down: Blocked at row " + newIndex + " with value " + board[newIndex][col]);
+                        System.out.println("You can't move down! That way is blocked by another vehicle.");
                         return false; //blocked space
                     }
                 }
@@ -188,11 +188,11 @@ public class BoardRules {
                 for (int move = 1; move <= numberOfMoves; move++) {
                     int newRow = firstRow - move;
                     if (newRow < 0) {
-                        System.out.println("Cannot move up: Out of bounds at row " + newRow);
+                        System.out.println("You can't move up! - Out of bounds");
                         return false;
                     }
                     if (board[newRow][col] != null) {
-                        System.out.println("Cannot move up: Blocked at row " + newRow + " with value " + board[newRow][col]);
+                        System.out.println("You can't move up! That way is blocked by another vehicle.");
                         return false;
                     }
                 }
