@@ -3,6 +3,7 @@ package main.game.gameviews.pages;
 import main.database.Select;
 import main.game.GameContext;
 import main.game.Player;
+import main.game.gamesession.GameSession;
 import main.game.gameviews.GameState;
 
 import java.sql.SQLException;
@@ -33,6 +34,14 @@ public class SetUpPage implements GameState {
             String email = scanner.nextLine();
             Select select = new Select();
             Player currentPlayer =  select.getPlayerInfoByEmail(email);
+
+
+            GameSession sessionStateData = select.getGameSessionByPlayerId(currentPlayer.getPlayerId());
+
+
+            select.getBoardStateBySessionId(sessionStateData.getSessionId());
+
+            System.out.println("Hello, " + currentPlayer.getUserName() + " seams like you have a previous game not finished!, you want to load the data? (Y,N)");
 
             System.out.print("Hello, " + currentPlayer.getUserName() + " ready for a new game? ");
 

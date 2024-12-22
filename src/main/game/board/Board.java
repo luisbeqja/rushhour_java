@@ -1,5 +1,6 @@
 package main.game.board;
 
+import java.util.Arrays;
 import java.util.Map;
 
 import static main.game.board.BoardLevels.getLevel;
@@ -42,7 +43,7 @@ public class Board {
         for (Map.Entry<String, Vehicle> vehicle : vehicles.entrySet()) {
             String vehicleValue = vehicle.getKey();
             int[][] vehiclePosition = vehicle.getValue().getPosition();
-
+            System.out.println(Arrays.deepToString(this.visualBoard));
             for (int[] position : vehiclePosition) {
                 visualBoard[position[0]][position[1]] = vehicleValue;
             }
