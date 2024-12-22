@@ -12,9 +12,7 @@ public class DatabaseConnection {
     private static final String DB_URL = "jdbc:postgresql://localhost:5432/postgres"; // Path to your database file
     private static final String USER = "postgres"; // Default PostgresSQL user
 
-
-    // TODO ASK about the PASSWORD from different pc's
-    private static final String PASSWORD = "Alephi001."; // Default PostgresSQL password (different from every pc)
+    private static final String PASSWORD = "Student_1234"; // Default PostgresSQL password (different from every pc)
 
     public static Connection getConnection() {
         if (connection == null) {

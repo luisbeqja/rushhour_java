@@ -3,6 +3,7 @@ package main.game.gameviews.pages;
 import main.database.Select;
 import main.game.GameContext;
 import main.game.Player;
+import main.game.gamesession.GameSession;
 import main.game.gameviews.GameState;
 
 import java.sql.SQLException;
@@ -42,17 +43,34 @@ public class SetUpPage implements GameState {
     @Override
     public void handleInput(GameContext context) throws SQLException {
         Scanner scanner = new Scanner(System.in);
+        boolean validInput = false;
 
         String choice = scanner.nextLine();
         if (choice.equalsIgnoreCase("Y")) {
-            System.out.print("What is your email? ");
-            String email = scanner.nextLine();
-            Select select = new Select();
-            Player currentPlayer =  select.getPlayerInfoByEmail(email);
+            while (!validInput) {
+                System.out.print("What is your email? ");
+                String email = scanner.nextLine();
 
-            System.out.print("Hello, " + currentPlayer.getUserName() + " ready for a new game? ");
+                try {
+                    Select select = new Select();
+                    Player currentPlayer =  select.getPlayerInfoByEmail(email);
 
-            context.setState(new StartGame());
+                    GameSession sessionStateData = select.getGameSessionByPlayerId(currentPlayer.getPlayerId());
+
+                    if (select.getBoardStateBySessionId(sessionStateData.getSessionId(), context)) {
+                        System.out.println("Hello, " + currentPlayer.getUserName() + " seams like you have a previous game not finished!, you want to load the data? (Y,N)");
+                        select.getBoardStateBySessionId(sessionStateData.getSessionId(), context);
+                    } else {
+                        System.out.print("Hello, " + currentPlayer.getUserName() + " ready for a new game? ");
+                        context.setState(new StartGame());
+                    }
+                    validInput = true;
+                } catch (NullPointerException e) {
+                    System.out.println("No player found with the given email.");
+                }
+            }
+
+
         } else if (choice.equalsIgnoreCase("N")) {
             context.setState(new CreatePlayer());
         }
