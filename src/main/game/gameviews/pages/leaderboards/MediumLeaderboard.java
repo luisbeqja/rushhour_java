@@ -12,6 +12,22 @@ public class MediumLeaderboard implements GameState {
     Scanner scanner = new Scanner(System.in);
     DisplayLeaderboard leaderboardDisplay = new DisplayLeaderboard();
 
+    /**
+     * @return
+     */
+    @Override
+    public String getBoard() {
+        return "";
+    }
+
+    /**
+     * @param board
+     */
+    @Override
+    public void setBoard(String board) {
+
+    }
+
     @Override
     public void render() {
         leaderboardDisplay.displayLeaderboard("medium");

@@ -9,6 +9,22 @@ import java.util.Scanner;
 public class StartGame implements GameState {
 
 
+    /**
+     * @return
+     */
+    @Override
+    public String getBoard() {
+        return "";
+    }
+
+    /**
+     * @param board
+     */
+    @Override
+    public void setBoard(String board) {
+
+    }
+
     @Override
     public void render() {
         System.out.print("""

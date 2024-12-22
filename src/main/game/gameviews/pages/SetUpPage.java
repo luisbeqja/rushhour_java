@@ -12,6 +12,22 @@ public class SetUpPage implements GameState {
     Scanner scanner = new Scanner(System.in);
     public SetUpPage() {}
 
+    /**
+     * @return
+     */
+    @Override
+    public String getBoard() {
+        return "";
+    }
+
+    /**
+     * @param board
+     */
+    @Override
+    public void setBoard(String board) {
+
+    }
+
     @Override
     public void render() {
         System.out.println("""

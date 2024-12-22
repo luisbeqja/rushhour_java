@@ -21,8 +21,8 @@ public class Main {
         context.start(); // Begin game loop
     }
 
-    // Method to check for winning condition in the game
+  /*  // Method to check for winning condition in the game
     private static boolean checkWinCondition() {
         return winCheck(); // Call the board's method to check if the winning condition is met
-    }
+    }*/
 }

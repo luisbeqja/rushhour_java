@@ -14,7 +14,7 @@ public class DatabaseConnection {
 
 
     // TODO ASK about the PASSWORD from different pc's
-    private static final String PASSWORD = "2532002Luis"; // Default PostgresSQL password (different from every pc)
+    private static final String PASSWORD = "Alephi001."; // Default PostgresSQL password (different from every pc)
 
     public static Connection getConnection() {
         if (connection == null) {
@@ -29,12 +29,8 @@ public class DatabaseConnection {
         }
         return connection;
     }
-    static Statement createStatement() {
-        try {
-            return getConnection().createStatement();
-        } catch (SQLException e) {
-            System.err.println("Connection to DB failed!" + e.getMessage());
-            return null;
-        }
+
+    public static Statement createStatement() {
+        return createStatement();
     }
 }
