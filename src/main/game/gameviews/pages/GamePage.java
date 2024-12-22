@@ -9,15 +9,22 @@ import main.game.board.BoardRules;
 import main.game.board.Vehicle;
 import main.game.gameviews.GameState;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
 public class GamePage implements GameState {
 
-    int levelId;
+    int levelId = 137;
     int numberOfMoves = 0;
+    Map<String, Vehicle> vehicles;
+
     public GamePage(int levelId) {
         this.levelId = levelId;
+    }
+
+    public GamePage(Map<String, Vehicle> loadedlevel) {
+        this.vehicles = loadedlevel;
     }
 
     @Override
@@ -31,8 +38,15 @@ public class GamePage implements GameState {
         // Creating a board
         Board board = new Board(false);
 
-        // Filling the board as Map with vehicles from selected level
-        Map<String, Vehicle> boardMap = board.createBoard(levelId);
+
+        // Filling the board as Map with vehicles from selected level or loaded level
+        Map<String, Vehicle> boardMap;
+        if (levelId != 137) {
+            boardMap = board.createBoard(levelId);
+        } else {
+            boardMap = vehicles;
+        }
+
 
         new BoardRules(board.getVisualBoard(boardMap));
         // Setup database connection for player data storage
