@@ -60,6 +60,8 @@ public class Player {
         return email;
     }
 
+    public int getPlayerId() { return playerId; }
+
     // Setters
     public void setUserName(String userName) {
         this.userName = userName;
