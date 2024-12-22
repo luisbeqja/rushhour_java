@@ -27,12 +27,8 @@ public class DatabaseConnection {
         }
         return connection;
     }
-    static Statement createStatement() {
-        try {
-            return getConnection().createStatement();
-        } catch (SQLException e) {
-            System.err.println("Connection to DB failed!" + e.getMessage());
-            return null;
-        }
+
+    public static Statement createStatement() {
+        return createStatement();
     }
 }

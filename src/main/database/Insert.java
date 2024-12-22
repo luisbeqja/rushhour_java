@@ -1,7 +1,6 @@
 package main.database;
 
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class Insert {
     public void insertPlayer(String playerName, String joinDate, String email) throws SQLException {
@@ -25,6 +24,29 @@ public class Insert {
         } catch (SQLException e) {
             System.err.println("Error while inserting player: " + e.getMessage());
             throw e; // Rethrow exception for further handling if needed
+        }
+    }
+    /**
+     * Saves the game state to the database.
+     *
+     * This method inserts data into the 'sessions' table.
+     *
+     * @param savedGame The SavedGame object containing the game state information.
+     */
+    public static void saveGameState(SavedGame savedGame) {
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement sessionStmt = connection.prepareStatement(
+                     "INSERT INTO sessions (sessions_id) VALUES (?)")) {
+
+            sessionStmt.setInt(1, savedGame.getPlayerId()); // Assuming you have player_id in SavedGame
+            sessionStmt.setInt(2, savedGame.getLevelId());
+            sessionStmt.setInt(3, savedGame.getNumberOfMoves());
+            sessionStmt.setString(4, savedGame.getBoardState());
+            sessionStmt.executeUpdate();
+
+        } catch (SQLException e) {
+            System.err.println("Error saving game state: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 

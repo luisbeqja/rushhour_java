@@ -123,4 +123,8 @@ public class Board {
 
         return sb.toString();
     }
+
+    public String getBoard() {
+        return boardLevels.toString();
+    }
 }

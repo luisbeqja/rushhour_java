@@ -1,5 +1,7 @@
 package main.game.gameviews.pages;
 
+import main.database.Insert;
+import main.database.SavedGame;
 import main.game.board.Board;
 import main.game.board.BoardRules;
 import main.game.board.Vehicle;
@@ -100,5 +102,9 @@ public class GamePageLogic {
     // If !2 char -> false
     public static boolean checkDirectionAndMovesInput(String direction) {
         return direction.length() == 2;
+    }
+    public void saveGame(SavedGame savedGame) {
+        // Call the Insert class from the database package to save the game state
+        Insert.saveGameState(savedGame);
     }
 }
