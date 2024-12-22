@@ -130,9 +130,10 @@ public class Select {
 
                     int[][] positions = positionsList.toArray(new int[0][0]);
 
-                    loadedlevel.put(cellValue, new Vehicle(cellValue, positions));
+                    if (!cellValue.equals("0")) {
+                        loadedlevel.put(cellValue, new Vehicle(cellValue, positions));
+                    }
                 }
-                System.out.println(loadedlevel);
                 Board board = new Board(false);
                 context.setState(new GamePage(loadedlevel));
                 return true;
