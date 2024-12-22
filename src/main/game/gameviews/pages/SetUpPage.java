@@ -27,25 +27,34 @@ public class SetUpPage implements GameState {
     @Override
     public void handleInput(GameContext context) throws SQLException {
         Scanner scanner = new Scanner(System.in);
+        boolean validInput = false;
 
         String choice = scanner.nextLine();
         if (choice.equalsIgnoreCase("Y")) {
-            System.out.print("What is your email? ");
-            String email = scanner.nextLine();
-            Select select = new Select();
-            Player currentPlayer =  select.getPlayerInfoByEmail(email);
+            while (!validInput) {
+                System.out.print("What is your email? ");
+                String email = scanner.nextLine();
+
+                try {
+                    Select select = new Select();
+                    Player currentPlayer =  select.getPlayerInfoByEmail(email);
+
+                    GameSession sessionStateData = select.getGameSessionByPlayerId(currentPlayer.getPlayerId());
+
+                    if (select.getBoardStateBySessionId(sessionStateData.getSessionId(), context)) {
+                        System.out.println("Hello, " + currentPlayer.getUserName() + " seams like you have a previous game not finished!, you want to load the data? (Y,N)");
+                        select.getBoardStateBySessionId(sessionStateData.getSessionId(), context);
+                    } else {
+                        System.out.print("Hello, " + currentPlayer.getUserName() + " ready for a new game? ");
+                        context.setState(new StartGame());
+                    }
+                    validInput = true;
+                } catch (NullPointerException e) {
+                    System.out.println("No player found with the given email.");
+                }
+            }
 
 
-            GameSession sessionStateData = select.getGameSessionByPlayerId(currentPlayer.getPlayerId());
-
-
-            select.getBoardStateBySessionId(sessionStateData.getSessionId());
-
-            System.out.println("Hello, " + currentPlayer.getUserName() + " seams like you have a previous game not finished!, you want to load the data? (Y,N)");
-
-            System.out.print("Hello, " + currentPlayer.getUserName() + " ready for a new game? ");
-
-            context.setState(new StartGame());
         } else if (choice.equalsIgnoreCase("N")) {
             context.setState(new CreatePlayer());
         }
