@@ -1,10 +1,8 @@
-
 package main.game.gameviews.pages;
 
 import main.database.Create;
 import main.database.DatabaseConnection;
 import main.database.Drop;
-import main.database.SavedGame;
 import main.game.GameContext;
 import main.game.board.Board;
 import main.game.board.BoardRules;
@@ -30,34 +28,10 @@ public class GamePage implements GameState {
     }
 
     @Override
-    public String getBoard() {
-        return "";
-    }
-
-    @Override
-    public void setBoard(String board) {
-
-    }
-
-    /**
-     * Renders the game interface.
-     * <p>
-     * Displays the game header, level information, move count, and instructions for saving the game.
-     */
-    @Override
     public void render() {
         System.out.print(templateHeader());
-        System.out.println("Press 's' to save the game."); // Display save game option
     }
 
-    /**
-     * Handles user input and game logic.
-     *
-     * This method manages the game loop, handles user input, updates the game state,
-     * and checks for the winning condition.
-     *
-     * @param context The GameContext object (not used in this implementation).
-     */
     @Override
     public void handleInput(GameContext context) {
 
@@ -114,15 +88,6 @@ public class GamePage implements GameState {
 
             numberOfMoves++;
 
-            String userInput = scanner.nextLine().toLowerCase(); // Read user input (converted to lowercase)
-
-            // Check for save game input
-            if (userInput.equals("s")) {
-                saveGame(board, boardMap); // Call saveGame method with board and boardMap
-                System.out.println("Game saved successfully!");
-                continue; // Continue to the next iteration of the game loop
-            }
-
             // flag for while loop choosing vehicle and moving it
             // When flagForVehicle = false -> next turn
             boolean flagForVehicle = true;
@@ -163,36 +128,6 @@ public class GamePage implements GameState {
         }
     }
 
-    /**
-     * Saves the current game state.
-     *
-     * Creates a SavedGame object, populates it with game state information, and
-     * saves it to the database (database logic to be implemented).
-     *
-     * @param board The current game board.
-     * @param boardMap A map containing the vehicles on the board.
-     */
-    private void saveGame(Board board, Map<String, Vehicle> boardMap) {
-        this.boardMap = boardMap;
-        // Create a SavedGame object
-        SavedGame savedGame = new SavedGame();
-        savedGame.setlevelId(levelId);
-        savedGame.setNumberOfMoves(numberOfMoves);
-        savedGame.setBoard(board.getBoard()); // Assuming board has a method to get its current state
-
-        // Save the game state (implement your database logic here)
-        // ... (e.g., call a method in a separate class to save to the database)
-        // Flag to track save game status
-        boolean isGameSaved = true;
-    }
-
-    /**
-     * Creates and returns the game header string.
-     * <p>
-     * Includes level information and move count.
-     *
-     * @return The formatted game header string.
-     */
     private String templateHeader() {
         return """
                 Welcome to Rush Hour - by Superchicche
@@ -207,13 +142,5 @@ public class GamePage implements GameState {
                 
                 -------------------------------------
                 """;
-    }
-
-    public Map<String, Vehicle> getBoardMap() {
-        return boardMap;
-    }
-
-    public void setBoardMap(Map<String, Vehicle> boardMap) {
-        this.boardMap = boardMap;
     }
 }
